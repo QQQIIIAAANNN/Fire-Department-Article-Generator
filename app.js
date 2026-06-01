@@ -1,6 +1,6 @@
 /* ==========================================
-   消防分隊文章生成器 - Core Application JS
-   ========================================== */
+  消防分隊文章生成器 - Core Application JS
+  ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. App State & Cache Variables
@@ -21,43 +21,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const pubPhoneInput = document.getElementById('pubPhone');
     const toneGroup = document.getElementById('toneGroup');
     const lengthGroup = document.getElementById('lengthGroup');
-    
+
     // File upload elements
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const photoGallery = document.getElementById('photoGallery');
-    
+
     // Actions & Previews
     const generateBtn = document.getElementById('generateBtn');
     const copyBtn = document.getElementById('copyBtn');
     const downloadBtn = document.getElementById('downloadBtn');
-    
+
     const tabFb = document.getElementById('tabFb');
     const tabDoc = document.getElementById('tabDoc');
-    
+
     const viewEmpty = document.getElementById('viewEmpty');
     const viewLoading = document.getElementById('viewLoading');
     const viewFb = document.getElementById('viewFb');
     const viewDoc = document.getElementById('viewDoc');
-    
+
     const fbPreviewBody = document.getElementById('fbPreviewBody');
     const fbPreviewPhotos = document.getElementById('fbPreviewPhotos');
     const fbMetaDate = document.getElementById('fbMetaDate');
-    
+
     const docDateCell = document.getElementById('docDateCell');
     const docContactCell = document.getElementById('docContactCell');
     const docPhoneCell = document.getElementById('docPhoneCell');
     const docSubjectCell = document.getElementById('docSubjectCell');
     const docContentCell = document.getElementById('docContentCell');
     const docPhotosCell = document.getElementById('docPhotosCell');
-    
+
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
 
     // ==========================================
     // 3. Initialization & LocalStorage Cache
     // ==========================================
-    
+
     // Set postDate default as today's local date
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 5. Selector Groups Logic (Tone & Length)
     // ==========================================
-    
+
     // Tone Selector
     toneGroup.addEventListener('click', (e) => {
         const btn = e.target.closest('.select-btn');
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 6. Real Photo Upload & Compression Logic
     // ==========================================
-    
+
     // Drag & Drop event bindings
     ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, (e) => {
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const canvas = document.createElement('canvas');
                 let width = img.width;
                 let height = img.height;
-                
+
                 // Max limit size: 800px on the longest edge
                 const maxEdge = 800;
                 if (width > maxEdge || height > maxEdge) {
@@ -241,12 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         height = maxEdge;
                     }
                 }
-                
+
                 canvas.width = width;
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
-                
+
                 // Export as compressed JPEG format (0.8 quality)
                 const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
                 callback(compressedBase64);
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
                 <div class="badge">張數 ${index + 1}</div>
             `;
-            
+
             item.querySelector('.remove-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
                 const idToRemove = photo.id;
@@ -284,11 +284,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     function switchTab(tabId) {
         state.activeTab = tabId;
-        
+
         // Active Styles
         tabFb.classList.toggle('active', tabId === 'fbView');
         tabDoc.classList.toggle('active', tabId === 'docView');
-        
+
         if (state.generatedData) {
             // Render specific tab
             viewEmpty.style.display = 'none';
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 8. Gemini API Integration & Text Generation
     // ==========================================
-    
+
     generateBtn.addEventListener('click', async () => {
         const apiKey = apiKeyInput.value.trim();
         if (!apiKey) {
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 });
-                
+
                 let title = mainCheckbox.dataset.title;
                 if (checkboxId === 'topic-custom-training') {
                     const customTitle = document.getElementById('topic-custom-training-title').value.trim();
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         viewFb.style.display = 'none';
         viewDoc.style.display = 'none';
         viewLoading.style.display = 'flex';
-        
+
         generateBtn.disabled = true;
         copyBtn.disabled = true;
         downloadBtn.disabled = true;
@@ -425,13 +425,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const resData = await response.json();
             const jsonText = resData.candidates[0].content.parts[0].text;
-            
+
             // Clean up potentially wrapped JSON string
             const cleanedJson = cleanJsonString(jsonText);
             const parsedData = JSON.parse(cleanedJson);
-            
+
             state.generatedData = parsedData;
-            
+
             // Sync generated descriptions back to state uploaded photos
             state.uploadedPhotos.forEach((photo, idx) => {
                 if (parsedData.photoDescriptions && parsedData.photoDescriptions[idx]) {
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error generating post:', error);
             showToast(error.message || '生成失敗，請檢查 API 金鑰與網路狀態！', 'error');
-            
+
             // Revert previews display
             if (state.generatedData) {
                 switchTab(state.activeTab);
@@ -527,20 +527,20 @@ ${formattedSubjects}
     // ==========================================
     // 9. Previews Rendering Engine (Zero bold formatting)
     // ==========================================
-    
+
     function renderGeneratedPreviews() {
         if (!state.generatedData) return;
-        
+
         const data = state.generatedData;
         const dateStr = postDateInput.value;
         const formattedDate = formatChineseDate(dateStr);
 
         // --- A. Facebook Preview Render ---
         fbMetaDate.textContent = formattedDate;
-        
+
         // Formulate typical FB style post: Title + Body
         fbPreviewBody.innerHTML = `<strong>${data.title}</strong><br><br>${data.content.replace(/\n/g, '<br>')}`;
-        
+
         // Render smart FB photo grid
         fbPreviewPhotos.innerHTML = '';
         const count = state.uploadedPhotos.length;
@@ -560,19 +560,19 @@ ${formattedSubjects}
         // --- B. Official Document Preview Render (Perfectly unbolded) ---
         docDateCell.textContent = formatRocDate(dateStr);
         docDateCell.style.fontWeight = 'normal';
-        
+
         docContactCell.innerHTML = `聯絡人：${pubContactInput.value.trim()}`;
         docContactCell.style.fontWeight = 'normal';
-        
+
         docPhoneCell.innerHTML = `聯絡電話：${pubPhoneInput.value.trim()}`;
         docPhoneCell.style.fontWeight = 'normal';
-        
+
         docSubjectCell.innerHTML = `標題：${data.title}`;
         docSubjectCell.style.fontWeight = 'normal';
-        
+
         docContentCell.innerHTML = data.content.replace(/\n/g, '<br>');
         docContentCell.style.fontWeight = 'normal';
-        
+
         // Render editable doc photos list in a bordered table (Zero bold)
         docPhotosCell.innerHTML = '';
         if (count > 0) {
@@ -596,7 +596,7 @@ ${formattedSubjects}
             });
             tableHtml += `</table>`;
             docPhotosCell.innerHTML = tableHtml;
-            
+
             // Allow dynamic adjustment of photo descriptions
             docPhotosCell.querySelectorAll('.doc-photo-input').forEach(input => {
                 input.addEventListener('input', (e) => {
@@ -610,7 +610,7 @@ ${formattedSubjects}
         // Show Viewport Content
         viewEmpty.style.display = 'none';
         viewLoading.style.display = 'none';
-        
+
         // Toggle based on selected tab
         switchTab(state.activeTab);
     }
@@ -637,14 +637,14 @@ ${formattedSubjects}
     // ==========================================
     // 10. Secondary Actions (Copy & Word Export - Zero bold)
     // ==========================================
-    
+
     // Copy Text to Clipboard
     copyBtn.addEventListener('click', () => {
         if (!state.generatedData) return;
-        
+
         const data = state.generatedData;
         const fullText = `${data.title}\n\n${data.content}`;
-        
+
         navigator.clipboard.writeText(fullText).then(() => {
             showToast('文章內容已成功複製到剪貼簿！', 'success');
         }).catch((err) => {
@@ -787,7 +787,7 @@ ${formattedSubjects}
         // 3. Convert HTML doc to binary Blob
         const blob = new Blob(['\ufeff' + docHtml], { type: 'application/msword;charset=utf-8' });
         const url = URL.createObjectURL(blob);
-        
+
         // 4. Download Trigger
         const a = document.createElement('a');
         a.href = url;
@@ -796,11 +796,11 @@ ${formattedSubjects}
         a.download = `公館分隊新聞稿-${safeTitle}.doc`;
         document.body.appendChild(a);
         a.click();
-        
+
         // Cleanup memory
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        
+
         showToast('Word 文件下載成功！可在微軟 Word 中直接開啟。', 'success');
     });
 
@@ -810,10 +810,10 @@ ${formattedSubjects}
     let toastTimer;
     function showToast(message, type = 'info') {
         clearTimeout(toastTimer);
-        
+
         toastMsg.textContent = message;
         toast.className = `toast show ${type}`;
-        
+
         // Setup Icon based on type
         const icon = toast.querySelector('i');
         if (type === 'success') {
