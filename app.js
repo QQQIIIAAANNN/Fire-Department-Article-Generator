@@ -83,6 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleApiShowBtn.querySelector('i').className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
     });
 
+    // Clear API Key button listener
+    const clearApiBtn = document.getElementById('clearApiKey');
+    if (clearApiBtn) {
+        clearApiBtn.addEventListener('click', () => {
+            if (confirm('確定要清除儲存在此電腦本機的 Gemini API 金鑰嗎？')) {
+                localStorage.removeItem('fire_gemini_api_key');
+                apiKeyInput.value = '';
+                showToast('已成功清除本機 API 金鑰！', 'success');
+            }
+        });
+    }
+
     // ==========================================
     // 4. Collapsible Drawer Event Handlers
     // ==========================================
@@ -97,7 +109,17 @@ document.addEventListener('DOMContentLoaded', () => {
         { checkboxId: 'topic-escape', drawerId: 'drawer-escape' },
         { checkboxId: 'topic-elec', drawerId: 'drawer-elec' },
         { checkboxId: 'topic-disaster', drawerId: 'drawer-disaster' },
-        { checkboxId: 'topic-custom-publicity', drawerId: 'drawer-custom-publicity' }
+        { checkboxId: 'topic-custom-publicity', drawerId: 'drawer-custom-publicity' },
+        { checkboxId: 'topic-rescue-fire', drawerId: 'drawer-rescue-fire' },
+        { checkboxId: 'topic-rescue-car', drawerId: 'drawer-rescue-car' },
+        { checkboxId: 'topic-rescue-rope', drawerId: 'drawer-rescue-rope' },
+        { checkboxId: 'topic-rescue-water', drawerId: 'drawer-rescue-water' },
+        { checkboxId: 'topic-custom-rescue', drawerId: 'drawer-custom-rescue' },
+        { checkboxId: 'topic-event-volunteer', drawerId: 'drawer-event-volunteer' },
+        { checkboxId: 'topic-event-maintenance', drawerId: 'drawer-event-maintenance' },
+        { checkboxId: 'topic-event-donation', drawerId: 'drawer-event-donation' },
+        { checkboxId: 'topic-event-hydrant', drawerId: 'drawer-event-hydrant' },
+        { checkboxId: 'topic-custom-event', drawerId: 'drawer-custom-event' }
     ];
 
     subjects.forEach(({ checkboxId, drawerId }) => {
@@ -329,6 +351,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (checkboxId === 'topic-custom-publicity') {
                     const customTitle = document.getElementById('topic-custom-publicity-title').value.trim();
                     title = customTitle ? `自訂宣導：${customTitle}` : '自訂宣導項目';
+                } else if (checkboxId === 'topic-custom-rescue') {
+                    const customTitle = document.getElementById('topic-custom-rescue-title').value.trim();
+                    title = customTitle ? `自訂搶救：${customTitle}` : '自訂搶救項目';
+                } else if (checkboxId === 'topic-custom-event') {
+                    const customTitle = document.getElementById('topic-custom-event-title').value.trim();
+                    title = customTitle ? `自訂業務：${customTitle}` : '自訂業務項目';
                 }
 
                 promptSubjects.push({
@@ -430,7 +458,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Helper: Build the optimal Prompt for Taiwanese Fire Department article style
     function buildPrompt({ date, location, unit, tone, length, photoCount, subjects }) {
         const formattedSubjects = subjects.map(s => {
-            return `【主題：${s.title} (${s.type === 'training' ? '體技能訓練' : '消防宣導'})】\n大綱要點：${s.outlines.join('、')}`;
+            let typeStr = '消防宣導';
+            if (s.type === 'training') typeStr = '體技能訓練';
+            else if (s.type === 'rescue') typeStr = '災害搶救演練';
+            else if (s.type === 'event') typeStr = '義消與分隊業務';
+            return `【主題：${s.title} (${typeStr})】\n大綱要點：${s.outlines.join('、')}`;
         }).join('\n\n');
 
         return `你是一位專業的台灣消防局第一大隊公館分隊（位於苗栗縣公館鄉）新聞聯絡官，專門撰寫精美的新聞稿與社群媒體（Facebook）貼文。
@@ -515,35 +547,43 @@ ${formattedSubjects}
 
         // --- B. Official Document Preview Render ---
         docDateCell.textContent = formatRocDate(dateStr);
-        docContactCell.textContent = pubContactInput.value.trim();
-        docPhoneCell.textContent = pubPhoneInput.value.trim();
+        docContactCell.innerHTML = `聯絡人：${pubContactInput.value.trim()}`;
+        docPhoneCell.innerHTML = `聯絡電話：${pubPhoneInput.value.trim()}`;
         
-        docSubjectCell.innerHTML = `<b>主題：</b>${data.title}`;
+        docSubjectCell.innerHTML = `<b>標題：</b>${data.title}`;
         docContentCell.innerHTML = data.content.replace(/\n/g, '<br>');
         
-        // Render editable doc photos list
+        // Render editable doc photos list in a bordered table
         docPhotosCell.innerHTML = '';
         if (count > 0) {
+            let tableHtml = `<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-family:'DFKai-SB', '標楷體'; text-align:center; margin-top:15px;">`;
             state.uploadedPhotos.forEach((photo, idx) => {
-                const item = document.createElement('div');
-                item.className = 'doc-photo-item';
-                item.innerHTML = `
-                    <div class="doc-photo-img-wrapper">
-                        <img src="${photo.base64}">
-                    </div>
-                    <div style="max-width: 400px; margin: 5px auto;">
-                        <input type="text" class="text-input doc-photo-input" value="${photo.description || ''}" style="width: 100%; text-align: center; font-size: 12px; padding: 6px;" data-index="${idx}">
-                    </div>
+                const photoIdx = idx + 1;
+                tableHtml += `
+                    <tr>
+                        <td style="width:20%; border:1px solid #000; padding:10px; font-weight:bold; font-size:14px; background:#f9f9f9; color:#000;">照片 ${photoIdx}</td>
+                        <td style="width:80%; border:1px solid #000; padding:15px; text-align:center;">
+                            <img src="${photo.base64}" style="max-width:350px; max-height:220px; height:auto; display:inline-block; border:1px solid #ccc; padding:2px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #000; padding:10px; font-weight:bold; font-size:14px; background:#f9f9f9; color:#000;">說明</td>
+                        <td style="border:1px solid #000; padding:10px; text-align:center;">
+                            <input type="text" class="text-input doc-photo-input" value="${photo.description || ''}" style="width:90%; text-align:center; font-size:13px; color:#000; padding:6px; background:#fff; border:1px solid #ccc; border-radius:4px; display:inline-block;" data-index="${idx}">
+                        </td>
+                    </tr>
                 `;
-                
-                // Allow dynamic adjustment of photo descriptions
-                item.querySelector('.doc-photo-input').addEventListener('input', (e) => {
+            });
+            tableHtml += `</table>`;
+            docPhotosCell.innerHTML = tableHtml;
+            
+            // Allow dynamic adjustment of photo descriptions
+            docPhotosCell.querySelectorAll('.doc-photo-input').forEach(input => {
+                input.addEventListener('input', (e) => {
                     const index = parseInt(e.target.dataset.index);
                     state.uploadedPhotos[index].description = e.target.value;
                     state.generatedData.photoDescriptions[index] = e.target.value;
                 });
-
-                docPhotosCell.appendChild(item);
             });
         }
 
@@ -562,7 +602,7 @@ ${formattedSubjects}
         const rocYear = d.getFullYear() - 1911;
         const month = d.getMonth() + 1;
         const date = d.getDate();
-        return `中華民國 ${rocYear} 年 ${month} 月 ${date} 日`;
+        return `${rocYear}年${month}月${date}日`;
     }
 
     // Helper: Convert YYYY-MM-DD to friendly Chinese Date (e.g. 5月21日)
@@ -603,19 +643,24 @@ ${formattedSubjects}
         const contact = pubContactInput.value.trim();
         const phone = pubPhoneInput.value.trim();
 
-        // 1. Build photo items in HTML format
-        let photosHtml = '';
-        state.uploadedPhotos.forEach((photo) => {
+        // 1. Build photo items in Table format for Page 2
+        let tableRowsHtml = '';
+        state.uploadedPhotos.forEach((photo, idx) => {
+            const photoIdx = idx + 1;
             // Word seamlessly renders Base64 embedded source images inside HTML documents!
-            photosHtml += `
-                <div style="margin-bottom: 25px; text-align: center;">
-                    <div style="max-width: 450px; margin: 0 auto 8px; border: 1px solid #d3d3d3; padding: 4px; display: inline-block;">
-                        <img src="${photo.base64}" style="width: 450px; max-width: 100%; height: auto;" />
-                    </div>
-                    <div style="font-size: 12pt; font-family: DFKai-SB, 標楷體; font-weight: bold; margin-top: 5px; color: #333;">
-                        ${photo.description}
-                    </div>
-                </div>
+            tableRowsHtml += `
+                <tr style="page-break-inside: avoid;">
+                    <td style="width: 20%; border: 1px solid #000000; padding: 12px; font-weight: bold; text-align: center; background-color: #f2f2f2; font-family: DFKai-SB, 標楷體; font-size: 14pt;">照片 ${photoIdx}</td>
+                    <td style="width: 80%; border: 1px solid #000000; padding: 15px; text-align: center; vertical-align: middle;">
+                        <img src="${photo.base64}" style="width: 350px; height: auto;" />
+                    </td>
+                </tr>
+                <tr style="page-break-inside: avoid;">
+                    <td style="border: 1px solid #000000; padding: 12px; font-weight: bold; text-align: center; background-color: #f2f2f2; font-family: DFKai-SB, 標楷體; font-size: 14pt;">說明</td>
+                    <td style="border: 1px solid #000000; padding: 12px; text-align: center; font-family: DFKai-SB, 標楷體; font-size: 13pt; color: #000000;">
+                        ${photo.description || ''}
+                    </td>
+                </tr>
             `;
         });
 
@@ -637,7 +682,7 @@ ${formattedSubjects}
             <style>
                 @page {
                     size: 595.3pt 841.9pt; /* A4 size standard */
-                    margin: 72pt 90pt 72pt 90pt; /* Margins: top/bottom 2.54cm, left/right 3.17cm */
+                    margin: 72pt 72pt 72pt 72pt; /* Margins: top/bottom 2.54cm, left/right 2.54cm */
                 }
                 body {
                     font-family: DFKai-SB, 標楷體, 'Microsoft JhengHei', sans-serif;
@@ -646,51 +691,25 @@ ${formattedSubjects}
                     color: #000000;
                 }
                 .doc-title {
-                    color: #ff0000;
-                    font-size: 24pt;
+                    font-size: 20pt;
                     font-weight: bold;
                     text-align: center;
-                    letter-spacing: 4px;
-                    margin: 0;
+                    margin: 0 0 5px 0;
                 }
-                .doc-subtitle {
-                    color: #ff0000;
-                    font-size: 18pt;
-                    font-weight: bold;
-                    text-align: center;
-                    letter-spacing: 12px;
-                    text-indent: 12px;
-                    margin: 0 0 15px 0;
-                }
-                .doc-line {
-                    border-top: 3px double #ff0000;
-                    margin-bottom: 20px;
-                }
-                .meta-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 25px;
-                    font-size: 12pt;
-                }
-                .meta-table td {
-                    border: 1px solid #7f7f7f;
-                    padding: 8px 12px;
-                }
-                .meta-table td.lbl {
-                    font-weight: bold;
-                    background: #f2f2f2;
-                    text-align: center;
-                    width: 15%;
-                }
-                .meta-table td.val {
-                    width: 35%;
-                }
-                .subject {
+                .doc-date {
                     font-size: 16pt;
+                    text-align: center;
+                    margin: 0 0 30px 0;
+                }
+                .meta-section {
+                    margin-bottom: 25px;
+                    line-height: 1.8;
+                }
+                .meta-row {
+                    margin-bottom: 8px;
+                }
+                .meta-label-bold {
                     font-weight: bold;
-                    margin: 20px 0;
-                    padding-bottom: 10px;
-                    border-bottom: 1px solid #d3d3d3;
                 }
                 .content {
                     font-size: 14pt;
@@ -699,40 +718,48 @@ ${formattedSubjects}
                     text-indent: 28pt; /* Indent exactly 2 characters (14pt * 2) */
                     margin-bottom: 30px;
                 }
-                .photos-section {
-                    margin-top: 30px;
-                    border-top: 1px dashed #7f7f7f;
-                    padding-top: 20px;
+                .page-break {
+                    page-break-before: always;
+                    clear: all;
+                }
+                .table-title {
+                    font-size: 16pt;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 30px 0 20px 0;
+                    letter-spacing: 2px;
+                }
+                .photos-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    border: 1px solid #000000;
                 }
             </style>
         </head>
         <body>
-            <p class="doc-title">苗栗縣政府消防局第一大隊公館分隊</p>
-            <p class="doc-subtitle">新聞稿</p>
-            <div class="doc-line"></div>
+            <!-- Page 1: News Article -->
+            <p class="doc-title">苗栗縣政府消防局新聞稿</p>
+            <p class="doc-date">${rocDate}</p>
             
-            <table class="meta-table">
-                <tr>
-                    <td class="lbl">發稿日期</td>
-                    <td class="val">${rocDate}</td>
-                    <td class="lbl">聯 絡 人</td>
-                    <td class="val">${contact}</td>
-                </tr>
-                <tr>
-                    <td class="lbl">聯絡電話</td>
-                    <td class="val" colspan="3">${phone}</td>
-                </tr>
-            </table>
-
-            <p class="subject"><b>主題：</b>${data.title}</p>
+            <div class="meta-section">
+                <div class="meta-row"><span class="meta-label-bold">標題：</span>${data.title}</div>
+                <div class="meta-row">聯絡人：${contact}</div>
+                <div class="meta-row">聯絡電話：${phone}</div>
+                <div class="meta-row" style="font-weight: bold; margin-top: 15px;">內容：</div>
+            </div>
 
             <div class="content">
                 ${data.content.replace(/\n/g, '<br>')}
             </div>
 
-            <div class="photos-section">
-                ${photosHtml}
-            </div>
+            <!-- Page 2: Photo Evidence Paper -->
+            ${tableRowsHtml ? `
+            <br clear="all" class="page-break" />
+            <p class="table-title">苗栗縣政府消防局現場照相資料用紙</p>
+            <table class="photos-table">
+                ${tableRowsHtml}
+            </table>
+            ` : ''}
         </body>
         </html>
         `;

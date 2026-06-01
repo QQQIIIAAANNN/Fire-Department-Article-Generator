@@ -177,12 +177,12 @@ header {
     font-size: 13px;
     width: 200px;
     font-family: monospace;
-    padding-right: 25px;
+    padding-right: 45px;
 }
 
 .toggle-pwd-btn {
     position: absolute;
-    right: 0;
+    right: 22px;
     background: none;
     border: none;
     color: var(--text-muted);
@@ -194,6 +194,42 @@ header {
 
 .toggle-pwd-btn:hover {
     color: var(--text-primary);
+}
+
+.clear-pwd-btn {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px;
+    transition: var(--transition-fast);
+}
+
+.clear-pwd-btn:hover {
+    color: var(--danger);
+}
+
+.api-security-tip {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.85;
+    cursor: help;
+    transition: var(--transition-fast);
+}
+
+.api-security-tip:hover {
+    opacity: 1;
+    color: var(--text-secondary);
+}
+
+.api-security-tip i {
+    color: var(--success);
 }
 
 /* ==========================================
@@ -370,6 +406,14 @@ label.section-title i {
     color: var(--secondary);
 }
 
+.topic-section.rescue .topic-header span i {
+    color: var(--danger);
+}
+
+.topic-section.event .topic-header span i {
+    color: var(--success);
+}
+
 /* Selection list (Pill layout) */
 .pill-grid {
     display: flex;
@@ -415,6 +459,22 @@ label.section-title i {
     border-color: var(--secondary);
     color: var(--secondary);
     box-shadow: 0 0 10px rgba(0, 204, 255, 0.1);
+    font-weight: 500;
+}
+
+.pill-checkbox:checked + .pill-label.rescue {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: var(--danger);
+    color: var(--danger);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
+    font-weight: 500;
+}
+
+.pill-checkbox:checked + .pill-label.event {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: var(--success);
+    color: var(--success);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.1);
     font-weight: 500;
 }
 
@@ -1124,6 +1184,10 @@ label.section-title i {
     
     .brand-title h1 {
         font-size: 18px;
+    }
+    
+    .header-actions {
+        width: 100%;
     }
     
     .api-key-container {
