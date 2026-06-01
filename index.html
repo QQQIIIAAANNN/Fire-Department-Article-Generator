@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消防發文生成器 | 公館分隊</title>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ==========================================
+         Header Area: Logo, Title & API Setup
+         ========================================== -->
+    <header>
+        <div class="brand-section">
+            <div class="logo-badge">
+                <i class="fa-solid fa-fire-extinguisher" style="color: #fff;"></i>
+            </div>
+            <div class="brand-title">
+                <h1>消防發文生成器</h1>
+                <p>公館分隊專屬行政輔助系統</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <!-- API Key input -->
+            <div class="api-key-container">
+                <label for="apiKey"><i class="fa-solid fa-key" style="color: var(--primary);"></i> Gemini API Key</label>
+                <div class="api-key-input-wrapper">
+                    <input type="password" id="apiKey" placeholder="請輸入 API 金鑰..." autocomplete="off">
+                    <button type="button" class="toggle-pwd-btn" id="toggleApiShow" title="顯示/隱藏金鑰">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         Main Container: Two Column Layout
+         ========================================== -->
+    <main>
+        <!-- A. Config Panel (Left Column) -->
+        <section class="config-panel" aria-label="設定面板">
+            
+            <!-- 1. Metadata Form Group -->
+            <div class="form-group row">
+                <div class="form-group">
+                    <label for="postDate" class="section-title">
+                        <i class="fa-solid fa-calendar-days"></i> 發文日期
+                    </label>
+                    <input type="date" id="postDate" class="text-input">
+                </div>
+                <div class="form-group">
+                    <label for="pubLocation" class="section-title">
+                        <i class="fa-solid fa-location-dot"></i> 宣導/訓練地點
+                    </label>
+                    <input type="text" id="pubLocation" class="text-input" placeholder="例如：公館國中、駐地">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="form-group">
+                    <label for="pubContact" class="section-title">
+                        <i class="fa-solid fa-user-shield"></i> 聯絡人
+                    </label>
+                    <input type="text" id="pubContact" class="text-input" value="公館分隊   隊員陳彥銘">
+                </div>
+                <div class="form-group">
+                    <label for="pubPhone" class="section-title">
+                        <i class="fa-solid fa-phone"></i> 聯絡電話
+                    </label>
+                    <input type="text" id="pubPhone" class="text-input" value="037-222119">
+                </div>
+            </div>
+
+            <!-- 2. Tone Selector -->
+            <div class="form-group">
+                <label class="section-title">
+                    <i class="fa-solid fa-bullhorn"></i> 文章語氣
+                </label>
+                <div class="select-btn-group" id="toneGroup">
+                    <button type="button" class="select-btn active" data-value="專業嚴謹">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>專業嚴謹</span>
+                    </button>
+                    <button type="button" class="select-btn" data-value="親切活潑">
+                        <i class="fa-solid fa-face-smile"></i>
+                        <span>親切活潑</span>
+                    </button>
+                    <button type="button" class="select-btn" data-value="熱血宣傳">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>熱血宣傳</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Length Selector -->
+            <div class="form-group">
+                <label class="section-title">
+                    <i class="fa-solid fa-text-width"></i> 目標字數
+                </label>
+                <div class="select-btn-group" id="lengthGroup">
+                    <button type="button" class="select-btn" data-value="簡短 (約300字)">
+                        <i class="fa-solid fa-compress"></i>
+                        <span>約 300 字</span>
+                    </button>
+                    <button type="button" class="select-btn active" data-value="中等 (約500字)">
+                        <i class="fa-solid fa-align-left"></i>
+                        <span>約 500 字</span>
+                    </button>
+                    <button type="button" class="select-btn" data-value="詳細 (約800字)">
+                        <i class="fa-solid fa-expand"></i>
+                        <span>約 800 字</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. Dynamic Subject & Outline Matrix -->
+            <div class="form-group">
+                <label class="section-title">
+                    <i class="fa-solid fa-list-check"></i> 今日主題與大綱要點 (可複選)
+                </label>
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 5px;">
+                    
+                    <!-- Subject Category A: 體技能訓練 -->
+                    <div class="topic-section training">
+                        <div class="topic-header">
+                            <span><i class="fa-solid fa-dumbbell"></i> 體技能訓練</span>
+                            <span class="badge">複選訓練項目</span>
+                        </div>
+                        <div class="pill-grid">
+                            <!-- Cushion -->
+                            <input type="checkbox" id="topic-cushion" class="pill-checkbox" data-type="training" data-title="救生氣墊操作及充氣保養訓練">
+                            <label for="topic-cushion" class="pill-label training">救生氣墊訓練</label>
+                            
+                            <!-- First Aid -->
+                            <input type="checkbox" id="topic-firstaid" class="pill-checkbox" data-type="training" data-title="救護技術測驗">
+                            <label for="topic-firstaid" class="pill-label training">救護技術測驗</label>
+                            
+                            <!-- SCBA -->
+                            <input type="checkbox" id="topic-scba" class="pill-checkbox" data-type="training" data-title="空氣呼吸器消耗訓練">
+                            <label for="topic-scba" class="pill-label training">空氣呼吸器訓練</label>
+                            
+                            <!-- Physical Test -->
+                            <input type="checkbox" id="topic-physical" class="pill-checkbox" data-type="training" data-title="救助人員新式體能測驗">
+                            <label for="topic-physical" class="pill-label training">新式體能測驗</label>
+                            
+                            <!-- Custom Training -->
+                            <input type="checkbox" id="topic-custom-training" class="pill-checkbox" data-type="training" data-title="自訂訓練項目">
+                            <label for="topic-custom-training" class="pill-label training"><i class="fa-solid fa-pen-clip"></i> 其它自訂訓練</label>
+                        </div>
+
+                        <!-- Drawers for Sub-outlines -->
+                        <div id="drawer-cushion" class="outline-drawer">
+                            <div class="title">氣墊訓練要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-cushion-1" class="pill-checkbox" checked data-text="展開與充氣">
+                                <label for="out-cushion-1" class="sub-pill-label">展開與充氣</label>
+                                
+                                <input type="checkbox" id="out-cushion-2" class="pill-checkbox" checked data-text="固定與洩壓檢查">
+                                <label for="out-cushion-2" class="sub-pill-label">固定與洩壓</label>
+                                
+                                <input type="checkbox" id="out-cushion-3" class="pill-checkbox" checked data-text="雙手抱胸、躺姿自然落下跳落姿勢">
+                                <label for="out-cushion-3" class="sub-pill-label">抱胸躺跳姿</label>
+                                
+                                <input type="checkbox" id="out-cushion-4" class="pill-checkbox" checked data-text="救生氣墊為輔助器材，仍以入室救援與避難引導為主">
+                                <label for="out-cushion-4" class="sub-pill-label">輔助救援定位</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-cushion-other" class="pill-checkbox other-cb" data-input-id="out-cushion-other-input">
+                                    <label for="out-cushion-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-cushion-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-firstaid" class="outline-drawer">
+                            <div class="title">救護測驗要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-firstaid-1" class="pill-checkbox" checked data-text="燒燙傷情境模擬測驗">
+                                <label for="out-firstaid-1" class="sub-pill-label">燒燙傷處置</label>
+                                
+                                <input type="checkbox" id="out-firstaid-2" class="pill-checkbox" checked data-text="確認呼吸給予高濃度氧氣與保暖搬運固定">
+                                <label for="out-firstaid-2" class="sub-pill-label">高濃度氧氣/防休克</label>
+                                
+                                <input type="checkbox" id="out-firstaid-3" class="pill-checkbox" checked data-text="無菌敷料覆蓋避免二次傷害及擴大感染">
+                                <label for="out-firstaid-3" class="sub-pill-label">無菌敷料覆蓋</label>
+                                
+                                <input type="checkbox" id="out-firstaid-4" class="pill-checkbox" checked data-text="提醒民眾沖、脫、泡、蓋、送急救原則及勿信偏方">
+                                <label for="out-firstaid-4" class="sub-pill-label">沖脫泡蓋送宣導</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-firstaid-other" class="pill-checkbox other-cb" data-input-id="out-firstaid-other-input">
+                                    <label for="out-firstaid-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-firstaid-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-scba" class="outline-drawer">
+                            <div class="title">呼吸器訓練要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-scba-1" class="pill-checkbox" checked data-text="高溫高壓火場環境模擬與著全套防護裝備">
+                                <label for="out-scba-1" class="sub-pill-label">全套高溫裝備</label>
+                                
+                                <input type="checkbox" id="out-scba-2" class="pill-checkbox" checked data-text="負重行進、上下樓梯與重物拖拉等高耗氧操作">
+                                <label for="out-scba-2" class="sub-pill-label">上下樓梯負重</label>
+                                
+                                <input type="checkbox" id="out-scba-3" class="pill-checkbox" checked data-text="氣瓶消耗時間掌握與呼吸節奏調控">
+                                <label for="out-scba-3" class="sub-pill-label">控制氣瓶節奏</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-scba-other" class="pill-checkbox other-cb" data-input-id="out-scba-other-input">
+                                    <label for="out-scba-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-scba-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-physical" class="outline-drawer">
+                            <div class="title">體能測驗要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-phys-1" class="pill-checkbox" checked data-text="立定跳遠、後拋擲遠及折返跑">
+                                <label for="out-phys-1" class="sub-pill-label">爆發與敏捷度</label>
+                                
+                                <input type="checkbox" id="out-phys-2" class="pill-checkbox" checked data-text="菱形槓硬舉及負重行走以模擬搬運救災重物和患者">
+                                <label for="out-phys-2" class="sub-pill-label">菱形槓硬舉/負重行走</label>
+                                
+                                <input type="checkbox" id="out-phys-3" class="pill-checkbox" checked data-text="1500公尺跑走全面檢測肌耐力與長時間續航心肺力">
+                                <label for="out-phys-3" class="sub-pill-label">1500公尺長跑</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-physical-other" class="pill-checkbox other-cb" data-input-id="out-physical-other-input">
+                                    <label for="out-physical-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-physical-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom Training Drawer -->
+                        <div id="drawer-custom-training" class="outline-drawer">
+                            <div class="title">自訂訓練主題名稱：</div>
+                            <input type="text" id="topic-custom-training-title" class="text-input" placeholder="例如：消防車駕駛演練、無人機搜索等..." style="width: 100%; margin-bottom: 12px; font-size: 13px; padding: 8px 12px;">
+                            <div class="title">自訂大綱要點：</div>
+                            <div class="sub-pill-grid" id="custom-training-outlines">
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-custom-training-other" class="pill-checkbox other-cb" data-input-id="out-custom-training-other-input" checked>
+                                    <label for="out-custom-training-other" class="sub-pill-label other-lbl" style="display:none;"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-custom-training-other-input" class="text-input other-input" placeholder="請輸入自訂的大綱要點..." style="display:inline-block; width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject Category B: 消防宣導 -->
+                    <div class="topic-section publicity">
+                        <div class="topic-header">
+                            <span><i class="fa-solid fa-people-group"></i> 消防宣導</span>
+                            <span class="badge">複選宣導主題</span>
+                        </div>
+                        <div class="pill-grid">
+                            <!-- Detector -->
+                            <input type="checkbox" id="topic-detector" class="pill-checkbox" data-type="publicity" data-title="住宅用火災警報器設置與維護">
+                            <label for="topic-detector" class="pill-label publicity">住警器裝設維護</label>
+                            
+                            <!-- Water Safety -->
+                            <input type="checkbox" id="topic-water" class="pill-checkbox" data-type="publicity" data-title="夏日防溺安全原則">
+                            <label for="topic-water" class="pill-label publicity">夏日防溺宣導</label>
+                            
+                            <!-- Fire Escape -->
+                            <input type="checkbox" id="topic-escape" class="pill-checkbox" data-type="publicity" data-title="火災逃生應變觀念">
+                            <label for="topic-escape" class="pill-label publicity">火場避難逃生</label>
+                            
+                            <!-- Household Electricity -->
+                            <input type="checkbox" id="topic-elec" class="pill-checkbox" data-type="publicity" data-title="居家用火用電安全">
+                            <label for="topic-elec" class="pill-label publicity">用火用電安全</label>
+                            
+                            <!-- Disaster Prepare -->
+                            <input type="checkbox" id="topic-disaster" class="pill-checkbox" data-type="publicity" data-title="社區防震與防颱準備">
+                            <label for="topic-disaster" class="pill-label publicity">地震颱風防災</label>
+                            
+                            <!-- Custom Publicity -->
+                            <input type="checkbox" id="topic-custom-publicity" class="pill-checkbox" data-type="publicity" data-title="自訂宣導項目">
+                            <label for="topic-custom-publicity" class="pill-label publicity"><i class="fa-solid fa-pen-clip"></i> 其它自訂宣導</label>
+                        </div>
+
+                        <!-- Drawers for Sub-outlines -->
+                        <div id="drawer-detector" class="outline-drawer">
+                            <div class="title">住警器宣導要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-det-1" class="pill-checkbox" checked data-text="火災初期即時發出高分貝警報以爭取避難時間">
+                                <label for="out-det-1" class="sub-pill-label">初期高分貝警報</label>
+                                
+                                <input type="checkbox" id="out-det-2" class="pill-checkbox" checked data-text="臥室、樓梯及廚房等防護死角裝設守則">
+                                <label for="out-det-2" class="sub-pill-label">各臥室樓梯裝設</label>
+                                
+                                <input type="checkbox" id="out-det-3" class="pill-checkbox" checked data-text="定期按壓測試按鈕檢查電池與保持清潔">
+                                <label for="out-det-3" class="sub-pill-label">按壓測試維護</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-detector-other" class="pill-checkbox other-cb" data-input-id="out-detector-other-input">
+                                    <label for="out-detector-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-detector-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-water" class="outline-drawer">
+                            <div class="title">防溺宣導要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-wat-1" class="pill-checkbox" checked data-text="選擇設有救生員之合格安全水域">
+                                <label for="out-wat-1" class="sub-pill-label">合格救生水域</label>
+                                
+                                <input type="checkbox" id="out-wat-2" class="pill-checkbox" checked data-text="切勿於危險、水深不詳或設有禁止標誌區域戲水">
+                                <label for="out-wat-2" class="sub-pill-label">拒絕危險水域</label>
+                                
+                                <input type="checkbox" id="out-wat-3" class="pill-checkbox" checked data-text="牢記防溺五步口訣『叫、叫、伸、拋、選』">
+                                <label for="out-wat-3" class="sub-pill-label">叫叫伸拋選口訣</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-water-other" class="pill-checkbox other-cb" data-input-id="out-water-other-input">
+                                    <label for="out-water-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-water-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-escape" class="outline-drawer">
+                            <div class="title">逃生觀念宣導要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-esc-1" class="pill-checkbox" checked data-text="火場逃生採低姿勢、沿牆壁移動以避免吸入濃煙">
+                                <label for="out-esc-1" class="sub-pill-label">低姿勢沿牆爬行</label>
+                                
+                                <input type="checkbox" id="out-esc-2" class="pill-checkbox" checked data-text="若通道充斥濃煙，應關門阻隔濃煙並於窗口呼救等待救援">
+                                <label for="out-esc-2" class="sub-pill-label">關門阻煙待援</label>
+                                
+                                <input type="checkbox" id="out-esc-3" class="pill-checkbox" checked data-text="水滅火器與濃煙體驗模擬，提升學生及民眾臨場實感">
+                                <label for="out-esc-3" class="sub-pill-label">濃煙/滅火器體驗</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-escape-other" class="pill-checkbox other-cb" data-input-id="out-escape-other-input">
+                                    <label for="out-escape-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-escape-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-elec" class="outline-drawer">
+                            <div class="title">用電用火要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-el-1" class="pill-checkbox" checked data-text="避免延長線超載、綑綁或老舊破損造成電線走火">
+                                <label for="out-el-1" class="sub-pill-label">避免延長線超載</label>
+                                
+                                <input type="checkbox" id="out-el-2" class="pill-checkbox" checked data-text="廚房用火應切記『人離火熄』的防火原則">
+                                <label for="out-el-2" class="sub-pill-label">人離火熄原則</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-elec-other" class="pill-checkbox other-cb" data-input-id="out-elec-other-input">
+                                    <label for="out-elec-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-elec-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="drawer-disaster" class="outline-drawer">
+                            <div class="title">社區防災要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-dis-1" class="pill-checkbox" checked data-text="地震來襲採取『趴下、掩護、穩住』防護步驟">
+                                <label for="out-dis-1" class="sub-pill-label">趴下掩護穩住</label>
+                                
+                                <input type="checkbox" id="out-dis-2" class="pill-checkbox" checked data-text="平日固定高大重型家具、清理陽台排水溝及備妥避難包">
+                                <label for="out-dis-2" class="sub-pill-label">家具固定與防颱</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-disaster-other" class="pill-checkbox other-cb" data-input-id="out-disaster-other-input">
+                                    <label for="out-disaster-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-disaster-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom Publicity Drawer -->
+                        <div id="drawer-custom-publicity" class="outline-drawer">
+                            <div class="title">自訂宣導主題名稱：</div>
+                            <input type="text" id="topic-custom-publicity-title" class="text-input" placeholder="例如：防火衣著裝體驗、防火宣導晚會等..." style="width: 100%; margin-bottom: 12px; font-size: 13px; padding: 8px 12px;">
+                            <div class="title">自訂大綱要點：</div>
+                            <div class="sub-pill-grid" id="custom-publicity-outlines">
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-custom-publicity-other" class="pill-checkbox other-cb" data-input-id="out-custom-publicity-other-input" checked>
+                                    <label for="out-custom-publicity-other" class="sub-pill-label other-lbl" style="display:none;"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-custom-publicity-other-input" class="text-input other-input" placeholder="請輸入自訂的大綱要點..." style="display:inline-block; width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 5. Real Photo Upload Area -->
+            <div class="form-group">
+                <label class="section-title">
+                    <i class="fa-solid fa-camera"></i> 當天真實照片上傳 (最多 4 張)
+                </label>
+                <div class="upload-zone" id="dropZone">
+                    <i class="fa-solid fa-images upload-icon"></i>
+                    <p>拖曳照片到此處，或<span>點擊此處選取檔案</span></p>
+                    <span>支援 JPG, PNG 格式</span>
+                    <input type="file" id="fileInput" class="hidden-file-input" accept="image/png, image/jpeg" multiple>
+                </div>
+                <div class="photo-gallery" id="photoGallery">
+                    <!-- Gallery items loaded here via JS -->
+                </div>
+            </div>
+
+            <!-- 6. Ultimate CTA Generate Button -->
+            <button type="button" class="generate-btn" id="generateBtn">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> 一鍵生成公館分隊新聞稿
+            </button>
+
+        </section>
+
+        <!-- B. Preview Panel (Right Column) -->
+        <section class="preview-panel" aria-label="預覽與導出面板">
+            <!-- Header Tabs -->
+            <div class="preview-tabs">
+                <button type="button" class="preview-tab active" id="tabFb" data-target="fbView">
+                    <i class="fa-brands fa-facebook"></i> Facebook 貼文預覽
+                </button>
+                <button type="button" class="preview-tab" id="tabDoc" data-target="docView">
+                    <i class="fa-solid fa-file-word"></i> Word 公文下載預覽
+                </button>
+            </div>
+
+            <!-- Viewport Workspace -->
+            <div class="preview-viewport" id="previewViewport">
+                
+                <!-- State 1: Empty state -->
+                <div class="preview-empty-state" id="viewEmpty">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <h3>尚未生成內容</h3>
+                    <p>請先在左側填寫基本資料、勾選今日主題並上傳現場照片，然後點擊「一鍵生成」按鈕。</p>
+                </div>
+
+                <!-- State 2: Loading State -->
+                <div class="pulse-loader" id="viewLoading" style="display: none;">
+                    <div class="pulse-bars">
+                        <div class="pulse-bar"></div>
+                        <div class="pulse-bar"></div>
+                        <div class="pulse-bar"></div>
+                        <div class="pulse-bar"></div>
+                    </div>
+                    <p id="loadingMsg">正在解析您的主題大綱並串接 Gemini API...</p>
+                </div>
+
+                <!-- State 3: FB Preview UI -->
+                <div id="viewFb" style="display: none;">
+                    <div class="fb-post-mock">
+                        <div class="fb-header">
+                            <div class="fb-profile-pic">
+                                <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i>
+                            </div>
+                            <div class="fb-title-area">
+                                <div class="fb-name">苗栗縣政府消防局-第一大隊公館分隊</div>
+                                <div class="fb-meta">
+                                    <span id="fbMetaDate">剛剛</span> · <i class="fa-solid fa-earth-americas"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fb-body" id="fbPreviewBody">
+                            <!-- Dynamic text loaded here -->
+                        </div>
+                        <div class="fb-photo-grid" id="fbPreviewPhotos">
+                            <!-- Dynamic image grid loaded here -->
+                        </div>
+                        <div class="fb-footer">
+                            <span class="fb-action"><i class="fa-regular fa-thumbs-up"></i> 讚</span>
+                            <span class="fb-action"><i class="fa-regular fa-comment"></i> 留言</span>
+                            <span class="fb-action"><i class="fa-regular fa-share-from-square"></i> 分享</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- State 4: Word Document Preview UI -->
+                <div id="viewDoc" style="display: none;">
+                    <div class="doc-mock-wrapper">
+                        <div class="doc-mock">
+                            <div class="doc-header-title">苗栗縣政府消防局第一大隊公館分隊</div>
+                            <div class="doc-header-sub">新聞稿</div>
+                            <div class="doc-divider-line"></div>
+                            
+                            <table class="doc-metadata-table">
+                                <tr>
+                                    <td class="label">發稿日期</td>
+                                    <td class="value" id="docDateCell">[民國年月日]</td>
+                                    <td class="label">聯 絡 人</td>
+                                    <td class="value" id="docContactCell">公館分隊   隊員陳彥銘</td>
+                                </tr>
+                                <tr>
+                                    <td class="label">聯絡電話</td>
+                                    <td class="value" id="docPhoneCell" colspan="3">037-222119</td>
+                                </tr>
+                            </table>
+
+                            <div class="doc-subject" id="docSubjectCell">
+                                <b>主題：</b>[生成的主題字樣填寫位置]
+                            </div>
+
+                            <div class="doc-content" id="docContentCell">
+                                [生成的新聞內文填寫位置]
+                            </div>
+
+                            <div class="doc-photos-section" id="docPhotosCell">
+                                <!-- Dynamic doc photos with editable description loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Operations Actions panel -->
+            <div class="preview-actions">
+                <button type="button" class="action-btn" id="copyBtn" disabled>
+                    <i class="fa-solid fa-copy"></i> 複製文章內文
+                </button>
+                <button type="button" class="action-btn secondary" id="downloadBtn" disabled>
+                    <i class="fa-solid fa-file-arrow-down"></i> 下載官方 Word 檔 (.doc)
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating notification Alert element -->
+    <div id="toast" class="toast" role="alert">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">操作成功</span>
+    </div>
+
+    <!-- Application core JS logic -->
+    <script src="app.js"></script>
+</body>
+</html>

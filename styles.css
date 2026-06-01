@@ -1,0 +1,1203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   1. Design System & Variables
+   ========================================== */
+:root {
+    --bg-base: hsl(222, 47%, 9%);
+    --bg-surface: rgba(17, 24, 39, 0.7);
+    --bg-surface-solid: hsl(222, 47%, 12%);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.18);
+    
+    /* Brand Colors (Firefighter Rescue Palette) */
+    --primary: hsl(14, 100%, 53%); /* Safety Orange */
+    --primary-glow: hsla(14, 100%, 53%, 0.3);
+    --secondary: hsl(190, 90%, 45%); /* Rescue Cyan */
+    --secondary-glow: hsla(190, 90%, 45%, 0.3);
+    
+    /* Functional Colors */
+    --success: hsl(142, 70%, 45%);
+    --danger: hsl(350, 80%, 50%);
+    --warning: hsl(45, 100%, 50%);
+    
+    /* Text Colors */
+    --text-primary: hsl(210, 40%, 98%);
+    --text-secondary: hsl(215, 20%, 75%);
+    --text-muted: hsl(215, 15%, 55%);
+    --text-dark: hsl(222, 47%, 12%);
+    
+    /* Shadows & Effects */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.4);
+    --glow-primary: 0 0 20px var(--primary-glow);
+    --glass-blur: blur(16px);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+    
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   2. Global Reset & Base Setup
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', 'Microsoft JhengHei', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+    background-image: 
+        radial-gradient(circle at 10% 20%, hsla(14, 100%, 53%, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, hsla(190, 90%, 45%, 0.08) 0%, transparent 40%);
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================
+   3. Typography & Layout Headers
+   ========================================== */
+header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-badge {
+    background: linear-gradient(135deg, var(--primary), #ff7b00);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--glow-primary);
+    font-size: 24px;
+}
+
+.brand-title h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to right, #fff, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-title p {
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* API Setup in Header */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.api-key-container {
+    background: var(--bg-surface);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-fast);
+}
+
+.api-key-container:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 81, 0, 0.15);
+}
+
+.api-key-container label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.api-key-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.api-key-container input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 13px;
+    width: 200px;
+    font-family: monospace;
+    padding-right: 25px;
+}
+
+.toggle-pwd-btn {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px;
+    transition: var(--transition-fast);
+}
+
+.toggle-pwd-btn:hover {
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   4. Main Container & Grid Layout
+   ========================================== */
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 20px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    height: calc(100vh - 120px);
+    min-height: 600px;
+}
+
+/* Desktop Scrollable Panles */
+.config-panel {
+    background: var(--bg-surface);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    overflow-y: auto;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.preview-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* ==========================================
+   5. UI Cards & Group Containers
+   ========================================== */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.row {
+    flex-direction: row;
+    gap: 15px;
+}
+
+.form-group.row > * {
+    flex: 1;
+}
+
+label.section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+label.section-title i {
+    color: var(--primary);
+}
+
+/* Base Inputs */
+.text-input {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.text-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 81, 0, 0.15);
+}
+
+.text-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Selector Grid for Tone & Length */
+.select-btn-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.select-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px 8px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.select-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--border-hover);
+    color: #fff;
+}
+
+.select-btn.active {
+    background: linear-gradient(135deg, rgba(255, 81, 0, 0.15), rgba(255, 81, 0, 0.05));
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 4px 15px rgba(255, 81, 0, 0.1);
+    font-weight: 600;
+}
+
+.select-btn i {
+    font-size: 16px;
+}
+
+/* ==========================================
+   6. Dynamic Button Matrix for Topics & Outlines
+   ========================================== */
+.topic-section {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.topic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+
+.topic-header span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.topic-header .badge {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+}
+
+.topic-section.training .topic-header span i {
+    color: var(--primary);
+}
+
+.topic-section.publicity .topic-header span i {
+    color: var(--secondary);
+}
+
+/* Selection list (Pill layout) */
+.pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pill-checkbox {
+    display: none;
+}
+
+.pill-label {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pill-label:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--border-hover);
+    color: #fff;
+}
+
+.pill-checkbox:checked + .pill-label.training {
+    background: rgba(255, 81, 0, 0.12);
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 81, 0, 0.1);
+    font-weight: 500;
+}
+
+.pill-checkbox:checked + .pill-label.publicity {
+    background: rgba(0, 204, 255, 0.1);
+    border-color: var(--secondary);
+    color: var(--secondary);
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.1);
+    font-weight: 500;
+}
+
+/* Detailed Outline Sub-Box */
+.outline-drawer {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    margin-top: 5px;
+    display: none; /* Controlled dynamically by JS */
+    animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.outline-drawer .title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sub-pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.sub-pill-label {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.sub-pill-label:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+}
+
+.pill-checkbox:checked + .sub-pill-label {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: 500;
+}
+
+/* ==========================================
+   7. Drag & Drop Real Photo Uploader
+   ========================================== */
+.upload-zone {
+    border: 2px dashed var(--border-color);
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-md);
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--primary);
+    background: rgba(255, 81, 0, 0.03);
+}
+
+.upload-icon {
+    font-size: 32px;
+    color: var(--text-muted);
+    transition: var(--transition-fast);
+}
+
+.upload-zone:hover .upload-icon {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.upload-zone p {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.upload-zone span {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+/* Uploaded Image Gallery */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.gallery-item {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    box-shadow: var(--shadow-sm);
+    animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-item .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.gallery-item .remove-btn:hover {
+    background: var(--danger);
+}
+
+.gallery-item .badge {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+}
+
+/* ==========================================
+   8. Glowing Primary CTA Action Button
+   ========================================== */
+.generate-btn {
+    background: linear-gradient(135deg, var(--primary), #ff6a00);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(255, 81, 0, 0.2);
+    margin-top: 10px;
+}
+
+.generate-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 81, 0, 0.35);
+    background: linear-gradient(135deg, #ff6a00, #ff8000);
+}
+
+.generate-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.generate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ==========================================
+   9. Preview Header Tabs & Layout
+   ========================================== */
+.preview-tabs {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    padding: 4px;
+    border-radius: var(--radius-md);
+}
+
+.preview-tab {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.preview-tab.active {
+    background: var(--bg-surface-solid);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+}
+
+.preview-tab i {
+    font-size: 15px;
+}
+
+.preview-viewport {
+    background: var(--bg-surface);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    min-height: 400px;
+}
+
+/* Operation Tools at bottom of preview */
+.preview-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+}
+
+.action-btn.secondary {
+    background: rgba(0, 204, 255, 0.1);
+    border-color: rgba(0, 204, 255, 0.2);
+    color: var(--secondary);
+}
+
+.action-btn.secondary:hover:not(:disabled) {
+    background: rgba(0, 204, 255, 0.15);
+    border-color: var(--secondary);
+    box-shadow: 0 4px 15px rgba(0, 204, 255, 0.15);
+}
+
+.action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================
+   10. Previews Custom Styles (FB & Doc)
+   ========================================== */
+
+/* Preview Empty State */
+.preview-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    text-align: center;
+    gap: 15px;
+    padding: 40px 0;
+}
+
+.preview-empty-state i {
+    font-size: 48px;
+    background: linear-gradient(135deg, var(--border-color), rgba(255,255,255,0.1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.preview-empty-state h3 {
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.preview-empty-state p {
+    font-size: 13px;
+    max-width: 250px;
+}
+
+/* --- A. FACEBOOK MOCK PREVIEW --- */
+.fb-post-mock {
+    background: #ffffff;
+    color: #1c1e21;
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    font-family: Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    text-align: left;
+    max-width: 520px;
+    margin: 0 auto;
+    border: 1px solid #e5e5e5;
+}
+
+.fb-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fb-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e4e6eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #65676b;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+.fb-profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fb-title-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.fb-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #050505;
+    cursor: pointer;
+}
+
+.fb-name:hover {
+    text-decoration: underline;
+}
+
+.fb-meta {
+    font-size: 12px;
+    color: #65676b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fb-body {
+    padding: 4px 16px 12px;
+    font-size: 15px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #050505;
+}
+
+/* Facebook Smart Photo Grid Layout */
+.fb-photo-grid {
+    display: grid;
+    gap: 2px;
+    background: #e4e6eb;
+    border-top: 1px solid #ebedf0;
+    border-bottom: 1px solid #ebedf0;
+}
+
+.fb-photo-grid.grid-1 {
+    grid-template-columns: 1fr;
+}
+
+.fb-photo-grid.grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.fb-photo-grid.grid-3 {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.fb-photo-grid.grid-3 .grid-img:first-child {
+    grid-row: span 2;
+}
+
+.fb-photo-grid.grid-4 {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.fb-photo-grid.grid-4 .grid-img:first-child {
+    grid-row: span 3;
+}
+
+.fb-photo-grid .grid-img {
+    width: 100%;
+    aspect-ratio: 1.33; /* Standard aspect ratio */
+    object-fit: cover;
+}
+
+.fb-photo-grid.grid-1 .grid-img {
+    aspect-ratio: auto;
+    max-height: 400px;
+}
+
+.fb-footer {
+    padding: 10px 16px;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-around;
+    color: #65676b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.fb-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.fb-action:hover {
+    color: #050505;
+}
+
+/* --- B. OFFICIAL DOCUMENT PREVIEW (WORD-LIKE) --- */
+.doc-mock-wrapper {
+    background: #525659;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+}
+
+.doc-mock {
+    background: #ffffff;
+    color: #000000;
+    width: 100%;
+    min-width: 550px;
+    padding: 40px 50px;
+    font-family: 'BiauKai', 'DFKai-SB', 'Microsoft JhengHei', sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: left;
+}
+
+/* Official Document Header */
+.doc-header-title {
+    color: #ff0000; /* Official red */
+    font-size: 24px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 2px;
+}
+
+.doc-header-sub {
+    color: #ff0000;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 12px;
+    margin-bottom: 15px;
+    text-indent: 12px; /* Center with text-spacing offset */
+}
+
+.doc-divider-line {
+    border-top: 3px double #ff0000;
+    margin-bottom: 15px;
+}
+
+/* Metadata Table grid */
+.doc-metadata-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    font-size: 13px;
+}
+
+.doc-metadata-table td {
+    border: 1px solid #7f7f7f;
+    padding: 6px 10px;
+}
+
+.doc-metadata-table td.label {
+    font-weight: bold;
+    width: 14%;
+    text-align: center;
+    background: #f2f2f2;
+}
+
+.doc-metadata-table td.value {
+    width: 36%;
+}
+
+.doc-subject {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 8px;
+}
+
+.doc-content {
+    font-size: 14px;
+    line-height: 1.8;
+    text-indent: 28px; /* Standard 2-character indent */
+    margin-bottom: 30px;
+    white-space: pre-wrap;
+}
+
+/* Document Photos List */
+.doc-photos-section {
+    border-top: 1px dashed #7f7f7f;
+    padding-top: 20px;
+}
+
+.doc-photo-item {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.doc-photo-img-wrapper {
+    max-width: 450px;
+    margin: 0 auto 8px;
+    border: 1px solid #d3d3d3;
+    padding: 4px;
+    background: #fff;
+    display: inline-block;
+}
+
+.doc-photo-img-wrapper img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.doc-photo-desc {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 5px;
+}
+
+/* ==========================================
+   11. Loaders, Modals & Toast Alerts
+   ========================================== */
+.pulse-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    height: 100%;
+}
+
+.pulse-bars {
+    display: flex;
+    gap: 6px;
+}
+
+.pulse-bar {
+    width: 4px;
+    height: 24px;
+    background: var(--primary);
+    border-radius: 2px;
+    animation: pulse 1.2s ease-in-out infinite;
+}
+
+.pulse-bar:nth-child(2) { animation-delay: 0.15s; }
+.pulse-bar:nth-child(3) { animation-delay: 0.3s; }
+.pulse-bar:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes pulse {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1.2); filter: brightness(1.2); }
+}
+
+.pulse-loader p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Floating Notification Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(17, 24, 39, 0.9);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-xl);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    backdrop-filter: var(--glass-blur);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast.success { border-color: var(--success); color: var(--success); }
+.toast.error { border-color: var(--danger); color: var(--danger); }
+.toast.info { border-color: var(--secondary); color: var(--secondary); }
+
+/* ==========================================
+   12. Responsive Adjustments (RWD)
+   ========================================== */
+@media (max-width: 1024px) {
+    main {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding-bottom: 20px;
+    }
+    
+    .config-panel {
+        max-height: none;
+    }
+    
+    .preview-viewport {
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 15px 15px 5px;
+    }
+    
+    .brand-section {
+        gap: 10px;
+    }
+    
+    .logo-badge {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .brand-title h1 {
+        font-size: 18px;
+    }
+    
+    .api-key-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .api-key-container input {
+        width: 100%;
+    }
+    
+    main {
+        padding: 10px 10px 20px;
+        gap: 20px;
+    }
+    
+    .config-panel {
+        padding: 20px 15px;
+        gap: 20px;
+    }
+    
+    .select-btn-group {
+        gap: 6px;
+    }
+    
+    .select-btn {
+        padding: 10px 4px;
+        font-size: 12px;
+    }
+    
+    .preview-viewport {
+        padding: 15px;
+    }
+    
+    .doc-mock {
+        padding: 20px 15px;
+        min-width: 100%;
+    }
+    
+    .doc-metadata-table td {
+        padding: 4px 6px;
+    }
+}
+
+/* ==========================================
+   13. Custom Other Input Style Adjustments
+   ========================================== */
+.custom-outline-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    vertical-align: middle;
+}
+
+.custom-outline-row input[type="text"].other-input {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: #fff;
+    outline: none;
+    transition: var(--transition-fast);
+    width: 140px;
+    font-size: 11px;
+    padding: 4px 8px;
+    height: 26px;
+    margin-left: 5px;
+}
+
+.custom-outline-row input[type="text"].other-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(255, 81, 0, 0.15);
+}
+
+.custom-outline-row input[type="text"].other-input::placeholder {
+    color: var(--text-muted);
+}
+
