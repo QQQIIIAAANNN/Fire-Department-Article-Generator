@@ -309,6 +309,21 @@ label.section-title i {
     font-size: 14px;
     outline: none;
     transition: var(--transition-fast);
+    width: 100%;
+}
+
+/* Ensure HTML5 date input is fully responsive and clickable on mobile (especially iOS Safari) */
+input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 44px; /* Finger-friendly touch target height */
+    box-sizing: border-box;
+}
+
+input[type="date"]::-webkit-date-and-time-value {
+    min-height: 1.5em; /* Prevents vertical collapsing in iOS Safari */
+    text-align: left;  /* Align date value correctly */
+    line-height: normal;
 }
 
 .text-input:focus {
@@ -1207,6 +1222,11 @@ label.section-title i {
     .config-panel {
         padding: 20px 15px;
         gap: 20px;
+    }
+    
+    .form-group.row {
+        flex-direction: column;
+        gap: 15px;
     }
     
     .select-btn-group {
