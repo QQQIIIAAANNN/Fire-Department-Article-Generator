@@ -1,11 +1,11 @@
-/* ==========================================
+﻿/* ==========================================
    消防分隊文章生成器 - Core Application JS
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. App State & Cache Variables
     const state = {
-        uploadedPhotos: [], // Array of { id, file, base64, name, description }
+        uploadedPhotos: [], // Array of { id, file, base64, name }
         activeTab: 'fbView',
         activeTone: '專業嚴謹',
         activeLength: '中等 (約500字)',
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 4. Collapsible Drawer Event Handlers (Two main categories only)
+    // 4. Collapsible Drawer Event Handlers
     // ==========================================
     const subjects = [
         { checkboxId: 'topic-cushion', drawerId: 'drawer-cushion' },
@@ -109,7 +109,17 @@ document.addEventListener('DOMContentLoaded', () => {
         { checkboxId: 'topic-escape', drawerId: 'drawer-escape' },
         { checkboxId: 'topic-elec', drawerId: 'drawer-elec' },
         { checkboxId: 'topic-disaster', drawerId: 'drawer-disaster' },
-        { checkboxId: 'topic-custom-publicity', drawerId: 'drawer-custom-publicity' }
+        { checkboxId: 'topic-custom-publicity', drawerId: 'drawer-custom-publicity' },
+        { checkboxId: 'topic-rescue-fire', drawerId: 'drawer-rescue-fire' },
+        { checkboxId: 'topic-rescue-car', drawerId: 'drawer-rescue-car' },
+        { checkboxId: 'topic-rescue-rope', drawerId: 'drawer-rescue-rope' },
+        { checkboxId: 'topic-rescue-water', drawerId: 'drawer-rescue-water' },
+        { checkboxId: 'topic-custom-rescue', drawerId: 'drawer-custom-rescue' },
+        { checkboxId: 'topic-event-volunteer', drawerId: 'drawer-event-volunteer' },
+        { checkboxId: 'topic-event-maintenance', drawerId: 'drawer-event-maintenance' },
+        { checkboxId: 'topic-event-donation', drawerId: 'drawer-event-donation' },
+        { checkboxId: 'topic-event-hydrant', drawerId: 'drawer-event-hydrant' },
+        { checkboxId: 'topic-custom-event', drawerId: 'drawer-custom-event' }
     ];
 
     subjects.forEach(({ checkboxId, drawerId }) => {
@@ -210,8 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     id: photoId,
                     file: file,
                     base64: base64Data,
-                    name: file.name,
-                    description: ''
+                    name: file.name
                 });
                 renderPhotoGallery();
             });
@@ -342,6 +351,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (checkboxId === 'topic-custom-publicity') {
                     const customTitle = document.getElementById('topic-custom-publicity-title').value.trim();
                     title = customTitle ? `自訂宣導：${customTitle}` : '自訂宣導項目';
+                } else if (checkboxId === 'topic-custom-rescue') {
+                    const customTitle = document.getElementById('topic-custom-rescue-title').value.trim();
+                    title = customTitle ? `自訂搶救：${customTitle}` : '自訂搶救項目';
+                } else if (checkboxId === 'topic-custom-event') {
+                    const customTitle = document.getElementById('topic-custom-event-title').value.trim();
+                    title = customTitle ? `自訂業務：${customTitle}` : '自訂業務項目';
                 }
 
                 promptSubjects.push({
@@ -445,28 +460,12 @@ document.addEventListener('DOMContentLoaded', () => {
             renderGeneratedPreviews();
 
             // Enable Actions
-            copyBtn.disabled = false;
-            downloadBtn.disabled = false;
-        } catch (error) {
-            console.error('Error generating post:', error);
-            showToast(error.message || '生成失敗，請檢查 API 金鑰與網路狀態！', 'error');
-            
-            // Revert previews display
-            if (state.generatedData) {
-                switchTab(state.activeTab);
-            } else {
-                viewEmpty.style.display = 'block';
-                viewLoading.style.display = 'none';
-            }
-        } finally {
-            generateBtn.disabled = false;
-        }
-    });
-
-    function buildPrompt({ date, location, unit, tone, length, photoCount, subjects }) {
+        function buildPrompt({ date, location, unit, tone, length, photoCount, subjects }) {
         const formattedSubjects = subjects.map(s => {
             let typeStr = '消防宣導';
             if (s.type === 'training') typeStr = '體技能訓練';
+            else if (s.type === 'rescue') typeStr = '災害搶救演練';
+            else if (s.type === 'event') typeStr = '義消與分隊業務';
             return `【主題：${s.title} (${typeStr})】\n大綱要點：${s.outlines.join('、')}`;
         }).join('\n\n');
 
@@ -494,7 +493,6 @@ ${formattedSubjects}
 - 我們已經將當天拍攝的真實相片以 inlineData 方式傳送給您。
 - 請你仔細分析每張上傳照片中的真實畫面內容（例如：同仁正在操作的器材、演練情景、講授簡報或裝備等），寫出真實對應的相片圖說。
 - 為每張相片撰寫極度簡短（**控制在 15 個字以內**）且精準的黑白公文用圖說（例如：『同仁操作救生氣墊情形。』）。請注意，照片描述必須與照片畫面中實際發生的事情完全對齊，絕不要憑空猜測！
-- **重要：目前Word中皆不需要粗體。所以照片描述也必須是普通的常規細體文字，絕不可加任何粗體！**
 
 【輸出格式要求】
 請一定要返回一個合法的、乾淨的 JSON 物件，不可以包含任何 Markdown 格式標記（如 \`\`\`json ）。JSON 格式如下：
@@ -513,6 +511,27 @@ ${formattedSubjects}
 - JSON 的 "photoDescriptions" 陣列長度必須剛好等於 ${photoCount} (如果張數為 0 則為空陣列 [])。
 - 每個照片說明字數**絕對不可超過 15 個字**，不要包含任何 HTML 標記，不要加任何粗體！
 - 文章中應使用台灣消防界的常用語彙與習慣用法，不可使用中國大陸用語（如：空氣呼吸器為 SCBA、燒燙傷處置、住警器等）。`;
+    }��今（21）日、今（18）日等）在 [地點] 辦理 [主題項目]，描述同仁實際演練、操作或宣導情形。
+2. 第二段 (專業細節/要領)：詳細敘述該項目的專業細節、操作步驟（例如：救生氣墊操作時的空氣洩壓、跳姿「雙手抱胸、下顎貼緊前胸躺姿自然落下」；住警器能即時警報爭取黃金時間等）。
+3. 第三段 (教育宣導/提示)：融合消防專業常識對市民進行溫馨提醒（例如：燒燙傷牢記「沖、脫、泡、蓋、送」，戲水遵循防溺口訣「叫叫伸拋選」，居家用電切忌超載等）。
+4. 第四段 (大隊表示/總結語)：以「苗栗縣政府消防局第一大隊表示...」做結，強調消防同仁以良好體能及扎實訓練作為後盾，時刻守護民眾生命財產安全，傳達專業可靠的正面形象。
+
+【輸出格式要求】
+請一定要返回一個合法的、乾淨的 JSON 物件，不可以包含任何 Markdown 格式標記（如 \`\`\`json ）。JSON 格式如下：
+{
+  "title": "設計一個吸睛、帶有消防橘亮點與驚嘆號的合適標題",
+  "content": "生動流暢的完整新聞內文，分段明確，包含適當的標點符號與首行二字縮排",
+  "photoDescriptions": [
+    "根據生成的新聞稿內容，請為當天第 1 張真實照片生成合適的圖說，如：【照片一】公館分隊同仁進行救生氣墊固定與洩壓流程訓練。",
+    "為第 2 張真實照片生成合適的圖說（如果上傳照片張數 >= 2）",
+    "為第 3 張真實照片生成合適的圖說（如果上傳照片張數 >= 3）",
+    "為第 4 張真實照片生成合適的圖說（如果上傳照片張數 >= 4）"
+  ]
+}
+
+【特別強調】
+- JSON 的 "photoDescriptions" 陣列長度必須剛好等於 ${photoCount} (如果張數為 0 則為空陣列 [])。
+- 文章中應使用台灣消防界的常用語彙與習慣用法，不可使用中國大陸用語（如：空氣呼吸器為 SCBA、燒燙傷處置、住警器等）。`;
     }
 
     // Helper: Strips markdown wrappers around LLM's returned JSON
@@ -525,7 +544,7 @@ ${formattedSubjects}
     }
 
     // ==========================================
-    // 9. Previews Rendering Engine (Zero bold formatting)
+    // 9. Previews Rendering Engine
     // ==========================================
     
     function renderGeneratedPreviews() {
@@ -557,23 +576,15 @@ ${formattedSubjects}
             fbPreviewPhotos.style.display = 'none';
         }
 
-        // --- B. Official Document Preview Render (Perfectly unbolded) ---
+        // --- B. Official Document Preview Render ---
         docDateCell.textContent = formatRocDate(dateStr);
-        docDateCell.style.fontWeight = 'normal';
-        
         docContactCell.innerHTML = `聯絡人：${pubContactInput.value.trim()}`;
-        docContactCell.style.fontWeight = 'normal';
-        
         docPhoneCell.innerHTML = `聯絡電話：${pubPhoneInput.value.trim()}`;
-        docPhoneCell.style.fontWeight = 'normal';
         
         docSubjectCell.innerHTML = `標題：${data.title}`;
-        docSubjectCell.style.fontWeight = 'normal';
-        
         docContentCell.innerHTML = data.content.replace(/\n/g, '<br>');
-        docContentCell.style.fontWeight = 'normal';
         
-        // Render editable doc photos list in a bordered table (Zero bold)
+        // Render editable doc photos list in a bordered table
         docPhotosCell.innerHTML = '';
         if (count > 0) {
             let tableHtml = `<table style="width:100%; border-collapse:collapse; border:1px solid #000; font-family:'DFKai-SB', '標楷體'; text-align:center; margin-top:15px;">`;
@@ -589,7 +600,7 @@ ${formattedSubjects}
                     <tr>
                         <td style="border:1px solid #000; padding:10px; font-weight:normal; font-size:14px; background:#f9f9f9; color:#000;">說明</td>
                         <td style="border:1px solid #000; padding:10px; text-align:center;">
-                            <input type="text" class="text-input doc-photo-input" value="${photo.description || ''}" style="width:90%; text-align:center; font-weight:normal; font-size:13px; color:#000; padding:6px; background:#fff; border:1px solid #ccc; border-radius:4px; display:inline-block;" data-index="${idx}">
+                            <input type="text" class="text-input doc-photo-input" value="${photo.description || ''}" style="width:90%; text-align:center; font-size:13px; color:#000; padding:6px; background:#fff; border:1px solid #ccc; border-radius:4px; display:inline-block;" data-index="${idx}">
                         </td>
                     </tr>
                 `;
@@ -635,7 +646,7 @@ ${formattedSubjects}
     }
 
     // ==========================================
-    // 10. Secondary Actions (Copy & Word Export - Zero bold)
+    // 10. Secondary Actions (Copy & Word Export)
     // ==========================================
     
     // Copy Text to Clipboard
@@ -653,7 +664,7 @@ ${formattedSubjects}
         });
     });
 
-    // Elegant Word File Export (.doc format) with Base64 embedded images (Zero bold)
+    // Elegant Word File Export (.doc format) with Base64 embedded images
     downloadBtn.addEventListener('click', () => {
         if (!state.generatedData) return;
 
@@ -672,19 +683,19 @@ ${formattedSubjects}
                 <tr style="page-break-inside: avoid;">
                     <td style="width: 20%; border: 1px solid #000000; padding: 12px; font-weight: normal; text-align: center; background-color: #f2f2f2; font-family: DFKai-SB, 標楷體; font-size: 14pt;">照片 ${photoIdx}</td>
                     <td style="width: 80%; border: 1px solid #000000; padding: 15px; text-align: center; vertical-align: middle;">
-                        <img src="${photo.base64}" style="max-width: 100%; max-height: 260px; height: auto;" />
+                        <img src="${photo.base64}" style="width: 350px; height: auto;" />
                     </td>
                 </tr>
                 <tr style="page-break-inside: avoid;">
                     <td style="border: 1px solid #000000; padding: 12px; font-weight: normal; text-align: center; background-color: #f2f2f2; font-family: DFKai-SB, 標楷體; font-size: 14pt;">說明</td>
-                    <td style="border: 1px solid #000000; padding: 12px; text-align: center; font-weight: normal; font-family: DFKai-SB, 標楷體; font-size: 13pt; color: #000000;">
+                    <td style="border: 1px solid #000000; padding: 12px; text-align: center; font-family: DFKai-SB, 標楷體; font-size: 13pt; color: #000000;">
                         ${photo.description || ''}
                     </td>
                 </tr>
             `;
         });
 
-        // 2. Formulate HTML matching standard A4 Word Document margins and styles (Zero bold)
+        // 2. Formulate HTML matching standard A4 Word Document margins and styles
         const docHtml = `
         <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
         <head>
@@ -718,7 +729,6 @@ ${formattedSubjects}
                 }
                 .doc-date {
                     font-size: 16pt;
-                    font-weight: normal;
                     text-align: center;
                     margin: 0 0 30px 0;
                 }
@@ -728,15 +738,16 @@ ${formattedSubjects}
                 }
                 .meta-row {
                     margin-bottom: 8px;
+                }
+                .meta-label {
                     font-weight: normal;
                 }
                 .content {
                     font-size: 14pt;
                     line-height: 2.0;
-                    text-align: left;
+                    text-align: justify;
                     text-indent: 28pt; /* Indent exactly 2 characters (14pt * 2) */
                     margin-bottom: 30px;
-                    font-weight: normal;
                 }
                 .page-break {
                     page-break-before: always;

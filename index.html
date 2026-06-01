@@ -406,254 +406,6 @@
                         </div>
                     </div>
 
-                    <!-- Subject Category C: 災害搶救演練 -->
-                    <div class="topic-section rescue">
-                        <div class="topic-header">
-                            <span><i class="fa-solid fa-truck-field"></i> 災害搶救演練</span>
-                            <span class="badge">複選演練項目</span>
-                        </div>
-                        <div class="pill-grid">
-                            <!-- Fire suppression -->
-                            <input type="checkbox" id="topic-rescue-fire" class="pill-checkbox" data-type="rescue" data-title="火災搶救演練">
-                            <label for="topic-rescue-fire" class="pill-label rescue">火災搶救演練</label>
-                            
-                            <!-- Vehicle rescue -->
-                            <input type="checkbox" id="topic-rescue-car" class="pill-checkbox" data-type="rescue" data-title="車禍救助訓練">
-                            <label for="topic-rescue-car" class="pill-label rescue">車禍救助訓練</label>
-                            
-                            <!-- Rope rescue -->
-                            <input type="checkbox" id="topic-rescue-rope" class="pill-checkbox" data-type="rescue" data-title="繩索救援訓練">
-                            <label for="topic-rescue-rope" class="pill-label rescue">繩索救援訓練</label>
-                            
-                            <!-- Water rescue -->
-                            <input type="checkbox" id="topic-rescue-water" class="pill-checkbox" data-type="rescue" data-title="水域救援訓練">
-                            <label for="topic-rescue-water" class="pill-label rescue">水域救援訓練</label>
-                            
-                            <!-- Custom Rescue -->
-                            <input type="checkbox" id="topic-custom-rescue" class="pill-checkbox" data-type="rescue" data-title="自訂搶救項目">
-                            <label for="topic-custom-rescue" class="pill-label rescue"><i class="fa-solid fa-pen-clip"></i> 其它自訂搶救</label>
-                        </div>
-
-                        <!-- Drawers for Sub-outlines -->
-                        <div id="drawer-rescue-fire" class="outline-drawer">
-                            <div class="title">火災搶救演練要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-res-fire-1" class="pill-checkbox" checked data-text="高層建築物火災搶救演練">
-                                <label for="out-res-fire-1" class="sub-pill-label">高層建物搶救</label>
-                                
-                                <input type="checkbox" id="out-res-fire-2" class="pill-checkbox" checked data-text="火場人命搜救、熱顯像儀搜尋與通風排煙操作">
-                                <label for="out-res-fire-2" class="sub-pill-label">搜救通風排煙</label>
-                                
-                                <input type="checkbox" id="out-res-fire-3" class="pill-checkbox" checked data-text="水源車佔用、快速部署水帶與中繼供水操作">
-                                <label for="out-res-fire-3" class="sub-pill-label">水帶部署中繼供水</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-rescue-fire-other" class="pill-checkbox other-cb" data-input-id="out-rescue-fire-other-input">
-                                    <label for="out-rescue-fire-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-rescue-fire-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="drawer-rescue-car" class="outline-drawer">
-                            <div class="title">車禍救助訓練要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-res-car-1" class="pill-checkbox" checked data-text="油壓剪、撐開器及頂桿等破壞器材熟練操作">
-                                <label for="out-res-car-1" class="sub-pill-label">破壞器材操作</label>
-                                
-                                <input type="checkbox" id="out-res-car-2" class="pill-checkbox" checked data-text="事故車體穩固、墊木與安全氣囊防止二次爆開防護">
-                                <label for="out-res-car-2" class="sub-pill-label">車體穩固防護</label>
-                                
-                                <input type="checkbox" id="out-res-car-3" class="pill-checkbox" checked data-text="受困駕駛與乘客脫困步驟演練，避免患者頸椎二次傷害">
-                                <label for="out-res-car-3" class="sub-pill-label">患者脫困及防護</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-rescue-car-other" class="pill-checkbox other-cb" data-input-id="out-rescue-car-other-input">
-                                    <label for="out-rescue-car-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-rescue-car-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="drawer-rescue-rope" class="outline-drawer">
-                            <div class="title">繩索救援訓練要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-res-rope-1" class="pill-checkbox" checked data-text="高處及低處人命安全救援">
-                                <label for="out-res-rope-1" class="sub-pill-label">高低處安全救援</label>
-                                
-                                <input type="checkbox" id="out-res-rope-2" class="pill-checkbox" checked data-text="單繩與雙繩救援系統架設與拖拉比滑輪組操作">
-                                <label for="out-res-rope-2" class="sub-pill-label">繩索系統與滑輪組</label>
-                                
-                                <input type="checkbox" id="out-res-rope-3" class="pill-checkbox" checked data-text="個人安全吊帶著裝、防墜器與各式结繩迅速確實操作">
-                                <label for="out-res-rope-3" class="sub-pill-label">安全吊帶與結繩</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-rescue-rope-other" class="pill-checkbox other-cb" data-input-id="out-rescue-rope-other-input">
-                                    <label for="out-rescue-rope-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-rescue-rope-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="drawer-rescue-water" class="outline-drawer">
-                            <div class="title">水域救援訓練要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-res-wat-1" class="pill-checkbox" checked data-text="急流、防砂壩等危險水域人命救援演練">
-                                <label for="out-res-wat-1" class="sub-pill-label">急流防砂壩救援</label>
-                                
-                                <input type="checkbox" id="out-res-wat-2" class="pill-checkbox" checked data-text="消防救生艇、船外機組裝、啟動與操艇訓練">
-                                <label for="out-res-wat-2" class="sub-pill-label">救生艇與操艇訓練</label>
-                                
-                                <input type="checkbox" id="out-res-wat-3" class="pill-checkbox" checked data-text="拋繩槍操作與拋繩袋精準度投擲防溺救援操作">
-                                <label for="out-res-wat-3" class="sub-pill-label">拋繩槍與拋繩袋投擲</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-rescue-water-other" class="pill-checkbox other-cb" data-input-id="out-rescue-water-other-input">
-                                    <label for="out-rescue-water-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-rescue-water-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Custom Rescue Drawer -->
-                        <div id="drawer-custom-rescue" class="outline-drawer">
-                            <div class="title">自訂搶救主題名稱：</div>
-                            <input type="text" id="topic-custom-rescue-title" class="text-input" placeholder="例如：化學災害應變、鐵捲門破壞演練等..." style="width: 100%; margin-bottom: 12px; font-size: 13px; padding: 8px 12px;">
-                            <div class="title">自訂大綱要點：</div>
-                            <div class="sub-pill-grid" id="custom-rescue-outlines">
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-custom-rescue-other" class="pill-checkbox other-cb" data-input-id="out-custom-rescue-other-input" checked>
-                                    <label for="out-custom-rescue-other" class="sub-pill-label other-lbl" style="display:none;"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-custom-rescue-other-input" class="text-input other-input" placeholder="請輸入自訂的大綱要點..." style="display:inline-block; width: 100%;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Subject Category D: 義消與分隊業務 -->
-                    <div class="topic-section event">
-                        <div class="topic-header">
-                            <span><i class="fa-solid fa-handshake-angle"></i> 義消與分隊業務</span>
-                            <span class="badge">複選業務項目</span>
-                        </div>
-                        <div class="pill-grid">
-                            <!-- Volunteer training -->
-                            <input type="checkbox" id="topic-event-volunteer" class="pill-checkbox" data-type="event" data-title="義消定期訓練">
-                            <label for="topic-event-volunteer" class="pill-label event">義消定期訓練</label>
-                            
-                            <!-- Maintenance check -->
-                            <input type="checkbox" id="topic-event-maintenance" class="pill-checkbox" data-type="event" data-title="裝備保養檢查">
-                            <label for="topic-event-maintenance" class="pill-label event">裝備保養檢查</label>
-                            
-                            <!-- Equipment donation -->
-                            <input type="checkbox" id="topic-event-donation" class="pill-checkbox" data-type="event" data-title="救災器材捐贈儀式">
-                            <label for="topic-event-donation" class="pill-label event">救災器材捐贈</label>
-                            
-                            <!-- Hydrant inspection -->
-                            <input type="checkbox" id="topic-event-hydrant" class="pill-checkbox" data-type="event" data-title="消防栓檢查複查">
-                            <label for="topic-event-hydrant" class="pill-label event">消防栓水壓檢查</label>
-                            
-                            <!-- Custom Event -->
-                            <input type="checkbox" id="topic-custom-event" class="pill-checkbox" data-type="event" data-title="自訂業務項目">
-                            <label for="topic-custom-event" class="pill-label event"><i class="fa-solid fa-pen-clip"></i> 其它自訂業務</label>
-                        </div>
-
-                        <!-- Drawers for Sub-outlines -->
-                        <div id="drawer-event-volunteer" class="outline-drawer">
-                            <div class="title">義消定期訓練要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-eve-vol-1" class="pill-checkbox" checked data-text="加強轄區義消同仁各項救災技能複訓">
-                                <label for="out-eve-vol-1" class="sub-pill-label">義消技能複訓</label>
-                                
-                                <input type="checkbox" id="out-eve-vol-2" class="pill-checkbox" checked data-text="辦理警義消聯合防救災實兵演練">
-                                <label for="out-eve-vol-2" class="sub-pill-label">警義消聯合演練</label>
-                                
-                                <input type="checkbox" id="out-eve-vol-3" class="pill-checkbox" checked data-text="建立良好默契，提升現場救災效率與保障安全">
-                                <label for="out-eve-vol-3" class="sub-pill-label">默契與救災效率</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-event-volunteer-other" class="pill-checkbox other-cb" data-input-id="out-event-volunteer-other-input">
-                                    <label for="out-event-volunteer-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-event-volunteer-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="drawer-event-maintenance" class="outline-drawer">
-                            <div class="title">裝備保養檢查要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-eve-mai-1" class="pill-checkbox" checked data-text="消防車輛與隨車救災救護器材清潔保養">
-                                <label for="out-eve-mai-1" class="sub-pill-label">消防車輛與器材保養</label>
-                                
-                                <input type="checkbox" id="out-eve-mai-2" class="pill-checkbox" checked data-text="隨車發電機與探照燈等夜間照明設備啟動檢查">
-                                <label for="out-eve-mai-2" class="sub-pill-label">發電機與照明設備</label>
-                                
-                                <input type="checkbox" id="out-eve-mai-3" class="pill-checkbox" checked data-text="保障各項救災武器處於備用狀態，確保出勤無虞">
-                                <label for="out-eve-mai-3" class="sub-pill-label">保障出勤狀態</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-event-maintenance-other" class="pill-checkbox other-cb" data-input-id="out-event-maintenance-other-input">
-                                    <label for="out-event-maintenance-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-event-maintenance-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="drawer-event-donation" class="outline-drawer">
-                            <div class="title">救災器材捐贈要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-eve-don-1" class="pill-checkbox" checked data-text="感謝熱心企業或善心團體慷慨解囊捐贈救災/救護裝備">
-                                <label for="out-eve-don-1" class="sub-pill-label">企業善心捐贈</label>
-                                
-                                <input type="checkbox" id="out-eve-don-2" class="pill-checkbox" checked data-text="添購新型先進裝備，充實分隊救災硬體能量">
-                                <label for="out-eve-don-2" class="sub-pill-label">新型裝備充實</label>
-                                
-                                <input type="checkbox" id="out-eve-don-3" class="pill-checkbox" checked data-text="守護地方民眾生命財產安全，傳遞社會正能量">
-                                <label for="out-eve-don-3" class="sub-pill-label">守護地方民安</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-event-donation-other" class="pill-checkbox other-cb" data-input-id="out-event-donation-other-input">
-                                    <label for="out-event-donation-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-event-donation-other-input" class="text-input other-input" placeholder="請輸入自訂的大綱要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="drawer-event-hydrant" class="outline-drawer">
-                            <div class="title">消防栓檢查複查要點大綱：</div>
-                            <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-eve-hyd-1" class="pill-checkbox" checked data-text="轄區消防栓水壓與出水量精確測試與除鏽">
-                                <label for="out-eve-hyd-1" class="sub-pill-label">消防栓測試除鏽</label>
-                                
-                                <input type="checkbox" id="out-eve-hyd-2" class="pill-checkbox" checked data-text="針對消防栓周遭無障礙物阻擋與堆放物品進行宣導">
-                                <label for="out-eve-hyd-2" class="sub-pill-label">無阻擋宣導</label>
-                                
-                                <input type="checkbox" id="out-eve-hyd-3" class="pill-checkbox" checked data-text="確保發生火警時，救災水源不間斷供給">
-                                <label for="out-eve-hyd-3" class="sub-pill-label">保障救災水源</label>
-                                
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-event-hydrant-other" class="pill-checkbox other-cb" data-input-id="out-event-hydrant-other-input">
-                                    <label for="out-event-hydrant-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-event-hydrant-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Custom Event Drawer -->
-                        <div id="drawer-custom-event" class="outline-drawer">
-                            <div class="title">自訂業務主題名稱：</div>
-                            <input type="text" id="topic-custom-event-title" class="text-input" placeholder="例如：防火常識夏令營、廳舍防震防颱保養等..." style="width: 100%; margin-bottom: 12px; font-size: 13px; padding: 8px 12px;">
-                            <div class="title">自訂大綱要點：</div>
-                            <div class="sub-pill-grid" id="custom-event-outlines">
-                                <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-custom-event-other" class="pill-checkbox other-cb" data-input-id="out-custom-event-other-input" checked>
-                                    <label for="out-custom-event-other" class="sub-pill-label other-lbl" style="display:none;"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-custom-event-other-input" class="text-input other-input" placeholder="請輸入自訂的大綱要點..." style="display:inline-block; width: 100%;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -747,24 +499,24 @@
                         <div class="doc-mock" style="font-family: 'DFKai-SB', '標楷體', serif; color: #000; background: #fff; line-height: 1.8; padding: 40px 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
                             <!-- Page 1: News Mock -->
                             <div class="doc-page-1" style="margin-bottom: 40px;">
-                                <div style="text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 5px;">苗栗縣政府消防局新聞稿</div>
+                                <div style="text-align: center; font-size: 20px; font-weight: normal; margin-bottom: 5px;">苗栗縣政府消防局新聞稿</div>
                                 <div id="docDateCell" style="text-align: center; font-size: 16px; margin-bottom: 25px;">[民國年月日]</div>
                                 
                                 <div style="font-size: 15px; text-align: left; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
-                                    <div id="docSubjectCell"><b>標題：</b>[生成標題填寫位置]</div>
+                                    <div id="docSubjectCell">標題：[生成標題填寫位置]</div>
                                     <div id="docContactCell">聯絡人：公館分隊   隊員陳彥銘</div>
                                     <div id="docPhoneCell">聯絡電話：037-222119</div>
-                                    <div style="font-weight: bold; margin-top: 5px;">內容：</div>
+                                    <div style="font-weight: normal; margin-top: 5px;">內容：</div>
                                 </div>
 
-                                <div id="docContentCell" style="font-size: 15px; text-align: justify; text-indent: 30px; line-height: 2.0; min-height: 200px; color: #111;">
+                                <div id="docContentCell" style="font-size: 15px; text-align: left; text-indent: 30px; line-height: 2.0; min-height: 200px; color: #111;">
                                     [生成的新聞內文填寫位置]
                                 </div>
                             </div>
                             
                             <!-- Page 2 Divider / Header -->
                             <div style="border-top: 1px dashed #ccc; margin: 30px 0; padding-top: 20px;">
-                                <div style="text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">苗栗縣政府消防局現場照相資料用紙</div>
+                                <div style="text-align: center; font-size: 16px; font-weight: normal; margin-bottom: 20px; letter-spacing: 2px;">苗栗縣政府消防局現場照相資料用紙</div>
                                 <div id="docPhotosCell">
                                     <!-- Dynamic doc photos table loaded here -->
                                 </div>
