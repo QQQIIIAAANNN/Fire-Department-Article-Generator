@@ -99,16 +99,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Collapsible Drawer Event Handlers (Two main categories only)
     // ==========================================
     const subjects = [
+        // 體技能訓練 (Training)
         { checkboxId: 'topic-cushion', drawerId: 'drawer-cushion' },
         { checkboxId: 'topic-firstaid', drawerId: 'drawer-firstaid' },
         { checkboxId: 'topic-scba', drawerId: 'drawer-scba' },
         { checkboxId: 'topic-physical', drawerId: 'drawer-physical' },
+        { checkboxId: 'topic-hose-escape', drawerId: 'drawer-hose-escape' },
+        { checkboxId: 'topic-stairs-hose', drawerId: 'drawer-stairs-hose' },
+        { checkboxId: 'topic-forcible-tool', drawerId: 'drawer-forcible-tool' },
+        { checkboxId: 'topic-boat-outboard', drawerId: 'drawer-boat-outboard' },
+        { checkboxId: 'topic-pulley-haul', drawerId: 'drawer-pulley-haul' },
+        { checkboxId: 'topic-rope-ascent', drawerId: 'drawer-rope-ascent' },
+        { checkboxId: 'topic-pit-rescue', drawerId: 'drawer-pit-rescue' },
+        { checkboxId: 'topic-entry-control', drawerId: 'drawer-entry-control' },
+        { checkboxId: 'topic-firefighter-survival', drawerId: 'drawer-firefighter-survival' },
         { checkboxId: 'topic-custom-training', drawerId: 'drawer-custom-training' },
+        
+        // 消防宣導 (Publicity)
         { checkboxId: 'topic-detector', drawerId: 'drawer-detector' },
         { checkboxId: 'topic-water', drawerId: 'drawer-water' },
         { checkboxId: 'topic-escape', drawerId: 'drawer-escape' },
         { checkboxId: 'topic-elec', drawerId: 'drawer-elec' },
-        { checkboxId: 'topic-disaster', drawerId: 'drawer-disaster' },
+        { checkboxId: 'topic-co-poison', drawerId: 'drawer-co-poison' },
+        { checkboxId: 'topic-earthquake', drawerId: 'drawer-earthquake' },
+        { checkboxId: 'topic-typhoon', drawerId: 'drawer-typhoon' },
+        { checkboxId: 'topic-mini-suit', drawerId: 'drawer-mini-suit' },
+        { checkboxId: 'topic-smoke-experience', drawerId: 'drawer-smoke-experience' },
+        { checkboxId: 'topic-water-extinguisher', drawerId: 'drawer-water-extinguisher' },
         { checkboxId: 'topic-custom-publicity', drawerId: 'drawer-custom-publicity' }
     ];
 

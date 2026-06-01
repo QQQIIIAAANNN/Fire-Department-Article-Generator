@@ -156,6 +156,42 @@
                             <!-- Physical Test -->
                             <input type="checkbox" id="topic-physical" class="pill-checkbox" data-type="training" data-title="救助人員新式體能測驗">
                             <label for="topic-physical" class="pill-label training">新式體能測驗</label>
+
+                            <!-- Retreat along hose -->
+                            <input type="checkbox" id="topic-hose-escape" class="pill-checkbox" data-type="training" data-title="沿水帶撤離訓練">
+                            <label for="topic-hose-escape" class="pill-label training">沿水帶撤離</label>
+                            
+                            <!-- Hose line deployment in stairs -->
+                            <input type="checkbox" id="topic-stairs-hose" class="pill-checkbox" data-type="training" data-title="梯間佈線及垂直延伸訓練">
+                            <label for="topic-stairs-hose" class="pill-label training">梯間佈線</label>
+                            
+                            <!-- Forcible entry tool operation -->
+                            <input type="checkbox" id="topic-forcible-tool" class="pill-checkbox" data-type="training" data-title="破壞器材操作訓練">
+                            <label for="topic-forcible-tool" class="pill-label training">破壞器材操作</label>
+                            
+                            <!-- Outboard motor & boat operation -->
+                            <input type="checkbox" id="topic-boat-outboard" class="pill-checkbox" data-type="training" data-title="船外機與船艇操作保養訓練">
+                            <label for="topic-boat-outboard" class="pill-label training">船艇與船外機</label>
+                            
+                            <!-- Pulley hauling mechanical advantage operation -->
+                            <input type="checkbox" id="topic-pulley-haul" class="pill-checkbox" data-type="training" data-title="滑輪拖拉與省力系統操作訓練">
+                            <label for="topic-pulley-haul" class="pill-label training">滑輪拖拉省力</label>
+                            
+                            <!-- Rope ascent/descent -->
+                            <input type="checkbox" id="topic-rope-ascent" class="pill-checkbox" data-type="training" data-title="繩索登降與垂直救援訓練">
+                            <label for="topic-rope-ascent" class="pill-label training">繩索登降</label>
+                            
+                            <!-- PIT rescue team training -->
+                            <input type="checkbox" id="topic-pit-rescue" class="pill-checkbox" data-type="training" data-title="PIT (Personal Intervention Team) 快速干預救援小組訓練">
+                            <label for="topic-pit-rescue" class="pill-label training">PIT救援小組</label>
+                            
+                            <!-- Entry control -->
+                            <input type="checkbox" id="topic-entry-control" class="pill-checkbox" data-type="training" data-title="火場入室管制與安全管理管制訓練">
+                            <label for="topic-entry-control" class="pill-label training">入室管制</label>
+                            
+                            <!-- Firefighter self-survival -->
+                            <input type="checkbox" id="topic-firefighter-survival" class="pill-checkbox" data-type="training" data-title="消防人員火場生存與自救訓練">
+                            <label for="topic-firefighter-survival" class="pill-label training">火場自救</label>
                             
                             <!-- Custom Training -->
                             <input type="checkbox" id="topic-custom-training" class="pill-checkbox" data-type="training" data-title="自訂訓練項目">
@@ -249,6 +285,222 @@
                             </div>
                         </div>
 
+                        <!-- Drawer: Retreat along hose -->
+                        <div id="drawer-hose-escape" class="outline-drawer">
+                            <div class="title">沿水帶撤離要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-hose-esc-1" class="pill-checkbox" checked data-text="尋找水帶母耦與公耦辨識撤離方向">
+                                <label for="out-hose-esc-1" class="sub-pill-label">辨識公母接頭</label>
+                                
+                                <input type="checkbox" id="out-hose-esc-2" class="pill-checkbox" checked data-text="黑暗及濃煙環境中雙手沿水帶行進">
+                                <label for="out-hose-esc-2" class="sub-pill-label">濃煙沿線前進</label>
+                                
+                                <input type="checkbox" id="out-hose-esc-3" class="pill-checkbox" checked data-text="個人裝備阻礙排除與障礙物跨越操作">
+                                <label for="out-hose-esc-3" class="sub-pill-label">裝備解脫障礙</label>
+                                
+                                <input type="checkbox" id="out-hose-esc-4" class="pill-checkbox" checked data-text="團隊維持接觸並進行交互掩護撤退">
+                                <label for="out-hose-esc-4" class="sub-pill-label">團隊接觸撤退</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-hose-escape-other" class="pill-checkbox other-cb" data-input-id="out-hose-escape-other-input">
+                                    <label for="out-hose-escape-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-hose-escape-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Hose line deployment in stairs -->
+                        <div id="drawer-stairs-hose" class="outline-drawer">
+                            <div class="title">梯間佈線要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-stairs-hose-1" class="pill-checkbox" checked data-text="乾式與濕式佈線工法選擇與部署">
+                                <label for="out-stairs-hose-1" class="sub-pill-label">乾式/濕式工法</label>
+                                
+                                <input type="checkbox" id="out-stairs-hose-2" class="pill-checkbox" checked data-text="梯間水帶折疊、固定與防止下墜措施">
+                                <label for="out-stairs-hose-2" class="sub-pill-label">水帶折疊防墜</label>
+                                
+                                <input type="checkbox" id="out-stairs-hose-3" class="pill-checkbox" checked data-text="水帶轉折處受壓理管與防折損操作">
+                                <label for="out-stairs-hose-3" class="sub-pill-label">轉折理管防折</label>
+                                
+                                <input type="checkbox" id="out-stairs-hose-4" class="pill-checkbox" checked data-text="頂樓及各樓層射水射程、水壓與流量調控">
+                                <label for="out-stairs-hose-4" class="sub-pill-label">射水壓力調控</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-stairs-hose-other" class="pill-checkbox other-cb" data-input-id="out-stairs-hose-other-input">
+                                    <label for="out-stairs-hose-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-stairs-hose-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Forcible entry tool operation -->
+                        <div id="drawer-forcible-tool" class="outline-drawer">
+                            <div class="title">破壞器材操作要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-forcible-tool-1" class="pill-checkbox" checked data-text="油壓剪及切斷器等三合一破壞工具操作">
+                                <label for="out-forcible-tool-1" class="sub-pill-label">油壓三合一工具</label>
+                                
+                                <input type="checkbox" id="out-forcible-tool-2" class="pill-checkbox" checked data-text="引擎式混凝土及鐵捲門圓盤切斷機操作">
+                                <label for="out-forcible-tool-2" class="sub-pill-label">圓盤切斷機</label>
+                                
+                                <input type="checkbox" id="out-forcible-tool-3" class="pill-checkbox" checked data-text="手動破壞器材（撬棒、三合一斧）槓桿破門">
+                                <label for="out-forcible-tool-3" class="sub-pill-label">手動槓桿破門</label>
+                                
+                                <input type="checkbox" id="out-forcible-tool-4" class="pill-checkbox" checked data-text="破壞操作個人安全防護及現場火源管制">
+                                <label for="out-forcible-tool-4" class="sub-pill-label">防護火源管制</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-forcible-tool-other" class="pill-checkbox other-cb" data-input-id="out-forcible-tool-other-input">
+                                    <label for="out-forcible-tool-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-forcible-tool-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Outboard motor & boat operation -->
+                        <div id="drawer-boat-outboard" class="outline-drawer">
+                            <div class="title">船外機與船艇要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-boat-outboard-1" class="pill-checkbox" checked data-text="救生橡皮艇/艇身充氣、搬運與下水部署">
+                                <label for="out-boat-outboard-1" class="sub-pill-label">橡皮艇下水部署</label>
+                                
+                                <input type="checkbox" id="out-boat-outboard-2" class="pill-checkbox" checked data-text="船外機安裝架設、燃油調配與啟動測試">
+                                <label for="out-boat-outboard-2" class="sub-pill-label">船外機安裝啟動</label>
+                                
+                                <input type="checkbox" id="out-boat-outboard-3" class="pill-checkbox" checked data-text="水面Ｏ型、Ｓ型駕駛技巧與避障操縱操作">
+                                <label for="out-boat-outboard-3" class="sub-pill-label">OS型駕駛避障</label>
+                                
+                                <input type="checkbox" id="out-boat-outboard-4" class="pill-checkbox" checked data-text="船艇翻船自救、落水者接近與安全撈救">
+                                <label for="out-boat-outboard-4" class="sub-pill-label">翻船自救撈救</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-boat-outboard-other" class="pill-checkbox other-cb" data-input-id="out-boat-outboard-other-input">
+                                    <label for="out-boat-outboard-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-boat-outboard-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Pulley hauling mechanical advantage operation -->
+                        <div id="drawer-pulley-haul" class="outline-drawer">
+                            <div class="title">滑輪拖拉要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-pulley-haul-1" class="pill-checkbox" checked data-text="架設專用安全結（八字結、普魯士抓結）">
+                                <label for="out-pulley-haul-1" class="sub-pill-label">專用安全繩結</label>
+                                
+                                <input type="checkbox" id="out-pulley-haul-2" class="pill-checkbox" checked data-text="架設 3:1 (Z-rig) 及 5:1 系統省力拖拉倍率">
+                                <label for="out-pulley-haul-2" class="sub-pill-label">3:1與5:1系統</label>
+                                
+                                <input type="checkbox" id="out-pulley-haul-3" class="pill-checkbox" checked data-text="系統滑輪配合防退裝置（下降器、制動抓繩器）操作">
+                                <label for="out-pulley-haul-3" class="sub-pill-label">滑輪與防退制動</label>
+                                
+                                <input type="checkbox" id="out-pulley-haul-4" class="pill-checkbox" checked data-text="重物與模擬患者之垂直、水平救援拖拉演練">
+                                <label for="out-pulley-haul-4" class="sub-pill-label">垂直水平拖拉</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-pulley-haul-other" class="pill-checkbox other-cb" data-input-id="out-pulley-haul-other-input">
+                                    <label for="out-pulley-haul-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-pulley-haul-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Rope ascent/descent -->
+                        <div id="drawer-rope-ascent" class="outline-drawer">
+                            <div class="title">繩索登降要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-rope-ascent-1" class="pill-checkbox" checked data-text="全身式安全吊帶正確穿戴與主動防墜確保架設">
+                                <label for="out-rope-ascent-1" class="sub-pill-label">安全吊帶防墜</label>
+                                
+                                <input type="checkbox" id="out-rope-ascent-2" class="pill-checkbox" checked data-text="運用手持及胸式上升器進行繩索登攀爬升">
+                                <label for="out-rope-ascent-2" class="sub-pill-label">上升器繩索攀爬</label>
+                                
+                                <input type="checkbox" id="out-rope-ascent-3" class="pill-checkbox" checked data-text="使用 ID、八字環等下降器進行手動控制下降">
+                                <label for="out-rope-ascent-3" class="sub-pill-label">下降器手控下降</label>
+                                
+                                <input type="checkbox" id="out-rope-ascent-4" class="pill-checkbox" checked data-text="空中登降系統轉換操作與自我確保安全點">
+                                <label for="out-rope-ascent-4" class="sub-pill-label">登降轉換與確保</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-rope-ascent-other" class="pill-checkbox other-cb" data-input-id="out-rope-ascent-other-input">
+                                    <label for="out-rope-ascent-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-rope-ascent-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: PIT rescue team training -->
+                        <div id="drawer-pit-rescue" class="outline-drawer">
+                            <div class="title">PIT小組訓練要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-pit-rescue-1" class="pill-checkbox" checked data-text="火場同仁受困求救（MAYDAY）訊號接收與定位">
+                                <label for="out-pit-rescue-1" class="sub-pill-label">MAYDAY接收定位</label>
+                                
+                                <input type="checkbox" id="out-pit-rescue-2" class="pill-checkbox" checked data-text="救援小組攜帶 RIT 緊急氣源包實施氣瓶更換連接口操作">
+                                <label for="out-pit-rescue-2" class="sub-pill-label">RIT緊急氣源更換</label>
+                                
+                                <input type="checkbox" id="out-pit-rescue-3" class="pill-checkbox" checked data-text="利用拖拉織帶及各式拖拉繩結進行受困同仁快速搬運">
+                                <label for="out-pit-rescue-3" class="sub-pill-label">拖拉織帶搬運</label>
+                                
+                                <input type="checkbox" id="out-pit-rescue-4" class="pill-checkbox" checked data-text="穿越火場坍塌狹窄空間障礙與緊急強制搬離逃生">
+                                <label for="out-pit-rescue-4" class="sub-pill-label">突破狹窄坍塌搬離</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-pit-rescue-other" class="pill-checkbox other-cb" data-input-id="out-pit-rescue-other-input">
+                                    <label for="out-pit-rescue-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-pit-rescue-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Entry control -->
+                        <div id="drawer-entry-control" class="outline-drawer">
+                            <div class="title">入室管制要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-entry-control-1" class="pill-checkbox" checked data-text="確實登錄入室人員姓名、氣瓶初始氣壓及時間">
+                                <label for="out-entry-control-1" class="sub-pill-label">管制板姓名氣壓</label>
+                                
+                                <input type="checkbox" id="out-entry-control-2" class="pill-checkbox" checked data-text="個人主動警報器（PASS）警報功能確認檢查">
+                                <label for="out-entry-control-2" class="sub-pill-label">PASS警報器檢查</label>
+                                
+                                <input type="checkbox" id="out-entry-control-3" class="pill-checkbox" checked data-text="入室後各點之氣壓回報無線電通訊分流">
+                                <label for="out-entry-control-3" class="sub-pill-label">回報通訊分流</label>
+                                
+                                <input type="checkbox" id="out-entry-control-4" class="pill-checkbox" checked data-text="精準估計氣壓折返點與撤離點並發布緊急撤退指令">
+                                <label for="out-entry-control-4" class="sub-pill-label">折返點撤離指令</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-entry-control-other" class="pill-checkbox other-cb" data-input-id="out-entry-control-other-input">
+                                    <label for="out-entry-control-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-entry-control-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Drawer: Firefighter self-survival -->
+                        <div id="drawer-firefighter-survival" class="outline-drawer">
+                            <div class="title">火場自救要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-firefighter-surv-1" class="pill-checkbox" checked data-text="同仁受困或失去方向時立即發送 MAYDAY 訊號程序">
+                                <label for="out-firefighter-surv-1" class="sub-pill-label">MAYDAY求求程序</label>
+                                
+                                <input type="checkbox" id="out-firefighter-surv-2" class="pill-checkbox" checked data-text="尋找相對安全空間（避難房）並確實關門阻擋濃煙">
+                                <label for="out-firefighter-surv-2" class="sub-pill-label">關門避難阻煙</label>
+                                
+                                <input type="checkbox" id="out-firefighter-surv-3" class="pill-checkbox" checked data-text="摸索尋找水帶、沿水帶或摸牆壁尋找安全出口逃生">
+                                <label for="out-firefighter-surv-3" class="sub-pill-label">尋找水帶牆壁出口</label>
+                                
+                                <input type="checkbox" id="out-firefighter-surv-4" class="pill-checkbox" checked data-text="身上個人防護裝備掛鉤障礙解脫與狹窄空間穿越技巧">
+                                <label for="out-firefighter-surv-4" class="sub-pill-label">裝備掛鉤解脫</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-firefighter-survival-other" class="pill-checkbox other-cb" data-input-id="out-firefighter-survival-other-input">
+                                    <label for="out-firefighter-survival-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-firefighter-survival-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Custom Training Drawer -->
                         <div id="drawer-custom-training" class="outline-drawer">
                             <div class="title">自訂訓練主題名稱：</div>
@@ -287,9 +539,29 @@
                             <input type="checkbox" id="topic-elec" class="pill-checkbox" data-type="publicity" data-title="居家用火用電安全">
                             <label for="topic-elec" class="pill-label publicity">用火用電安全</label>
                             
-                            <!-- Disaster Prepare -->
-                            <input type="checkbox" id="topic-disaster" class="pill-checkbox" data-type="publicity" data-title="社區防震與防颱準備">
-                            <label for="topic-disaster" class="pill-label publicity">地震颱風防災</label>
+                            <!-- CO Poisoning Prevention -->
+                            <input type="checkbox" id="topic-co-poison" class="pill-checkbox" data-type="publicity" data-title="防範一氧化碳中毒及熱水器安全宣導">
+                            <label for="topic-co-poison" class="pill-label publicity">防範一氧化碳中毒</label>
+                            
+                            <!-- Earthquake Publicity -->
+                            <input type="checkbox" id="topic-earthquake" class="pill-checkbox" data-type="publicity" data-title="地震防災與避難觀念宣導">
+                            <label for="topic-earthquake" class="pill-label publicity">防震宣導</label>
+                            
+                            <!-- Typhoon Publicity -->
+                            <input type="checkbox" id="topic-typhoon" class="pill-checkbox" data-type="publicity" data-title="防颱準備與防災避難宣導">
+                            <label for="topic-typhoon" class="pill-label publicity">防颱宣導</label>
+                            
+                            <!-- Mini Firefighter gear -->
+                            <input type="checkbox" id="topic-mini-suit" class="pill-checkbox" data-type="publicity" data-title="小小消防衣著裝體驗與教育宣導">
+                            <label for="topic-mini-suit" class="pill-label publicity">小小消防衣體驗</label>
+                            
+                            <!-- Smoke experience -->
+                            <input type="checkbox" id="topic-smoke-experience" class="pill-checkbox" data-type="publicity" data-title="火場濃煙體驗與低姿勢避難訓練">
+                            <label for="topic-smoke-experience" class="pill-label publicity">濃煙體驗</label>
+                            
+                            <!-- Water extinguisher -->
+                            <input type="checkbox" id="topic-water-extinguisher" class="pill-checkbox" data-type="publicity" data-title="水滅火器操作與滅火實戰演練">
+                            <label for="topic-water-extinguisher" class="pill-label publicity">水滅火器操作</label>
                             
                             <!-- Custom Publicity -->
                             <input type="checkbox" id="topic-custom-publicity" class="pill-checkbox" data-type="publicity" data-title="自訂宣導項目">
@@ -374,19 +646,146 @@
                             </div>
                         </div>
 
-                        <div id="drawer-disaster" class="outline-drawer">
-                            <div class="title">社區防災要點大綱：</div>
+                        <!-- CO Poisoning Prevention -->
+                        <div id="drawer-co-poison" class="outline-drawer">
+                            <div class="title">防範一氧化碳要點大綱：</div>
                             <div class="sub-pill-grid">
-                                <input type="checkbox" id="out-dis-1" class="pill-checkbox" checked data-text="地震來襲採取『趴下、掩護、穩住』防護步驟">
-                                <label for="out-dis-1" class="sub-pill-label">趴下掩護穩住</label>
+                                <input type="checkbox" id="out-co-pois-1" class="pill-checkbox" checked data-text="燃氣熱水器應安裝於屋外通風良好環境，避免通風不良蓄積一氧化碳">
+                                <label for="out-co-pois-1" class="sub-pill-label">屋外通風安裝</label>
                                 
-                                <input type="checkbox" id="out-dis-2" class="pill-checkbox" checked data-text="平日固定高大重型家具、清理陽台排水溝及備妥避難包">
-                                <label for="out-dis-2" class="sub-pill-label">家具固定與防颱</label>
+                                <input type="checkbox" id="out-co-pois-2" class="pill-checkbox" checked data-text="室內安裝燃氣熱水器必須選用強制排氣型（FE）熱水器與排氣管">
+                                <label for="out-co-pois-2" class="sub-pill-label">強制排氣FE型</label>
+                                
+                                <input type="checkbox" id="out-co-pois-3" class="pill-checkbox" checked data-text="宣導洗澡後有頭暈、嘔吐及無力等一氧化碳中毒初期症狀處置">
+                                <label for="out-co-pois-3" class="sub-pill-label">中毒徵兆與處置</label>
+                                
+                                <input type="checkbox" id="out-co-pois-4" class="pill-checkbox" checked data-text="定期委託合格燃氣熱水器承裝業及技術士進行安全檢修">
+                                <label for="out-co-pois-4" class="sub-pill-label">技術士定期檢修</label>
                                 
                                 <div class="custom-outline-row">
-                                    <input type="checkbox" id="out-disaster-other" class="pill-checkbox other-cb" data-input-id="out-disaster-other-input">
-                                    <label for="out-disaster-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
-                                    <input type="text" id="out-disaster-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                    <input type="checkbox" id="out-co-poison-other" class="pill-checkbox other-cb" data-input-id="out-co-poison-other-input">
+                                    <label for="out-co-poison-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-co-poison-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earthquake Publicity -->
+                        <div id="drawer-earthquake" class="outline-drawer">
+                            <div class="title">防震要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-eq-1" class="pill-checkbox" checked data-text="地震發生時應落實避難『趴下、掩護、穩住』三步驟">
+                                <label for="out-eq-1" class="sub-pill-label">趴下掩護穩住</label>
+                                
+                                <input type="checkbox" id="out-eq-2" class="pill-checkbox" checked data-text="平時應確實固定家中高大重型家具以防翻倒砸傷">
+                                <label for="out-eq-2" class="sub-pill-label">家具防倒固定</label>
+                                
+                                <input type="checkbox" id="out-eq-3" class="pill-checkbox" checked data-text="平時備妥緊急避難包（裝備手電筒、飲水、乾糧、急救藥品）">
+                                <label for="out-eq-3" class="sub-pill-label">緊急避難包</label>
+                                
+                                <input type="checkbox" id="out-eq-4" class="pill-checkbox" checked data-text="強震後應先關閉瓦斯與火源，再進行安全疏散撤離">
+                                <label for="out-eq-4" class="sub-pill-label">關閉火源瓦斯</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-earthquake-other" class="pill-checkbox other-cb" data-input-id="out-earthquake-other-input">
+                                    <label for="out-earthquake-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-earthquake-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Typhoon Publicity -->
+                        <div id="drawer-typhoon" class="outline-drawer">
+                            <div class="title">防颱要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-typh-1" class="pill-checkbox" checked data-text="颱風前清理陽台排水孔及屋頂排水溝以防積水淹水">
+                                <label for="out-typh-1" class="sub-pill-label">排水孔清理</label>
+                                
+                                <input type="checkbox" id="out-typh-2" class="pill-checkbox" checked data-text="颱風來襲前儲備充足之飲用水、乾糧、照明與電池">
+                                <label for="out-typh-2" class="sub-pill-label">儲備水與糧食</label>
+                                
+                                <input type="checkbox" id="out-typh-3" class="pill-checkbox" checked data-text="颱風期間切勿前往海邊觀浪、釣魚或進入山區易山崩路段">
+                                <label for="out-typh-3" class="sub-pill-label">禁止觀浪入山</label>
+                                
+                                <input type="checkbox" id="out-typh-4" class="pill-checkbox" checked data-text="隨時關注氣象廣播動態與政府發布之土石流警戒區域">
+                                <label for="out-typh-4" class="sub-pill-label">關注氣象警戒</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-typhoon-other" class="pill-checkbox other-cb" data-input-id="out-typhoon-other-input">
+                                    <label for="out-typhoon-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-typhoon-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini Firefighter Gear -->
+                        <div id="drawer-mini-suit" class="outline-drawer">
+                            <div class="title">小小消防衣體驗要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-mini-suit-1" class="pill-checkbox" checked data-text="學童穿著特製迷你消防衣、防火褲及戴上兒童安全頭盔">
+                                <label for="out-mini-suit-1" class="sub-pill-label">著裝迷你消防衣</label>
+                                
+                                <input type="checkbox" id="out-mini-suit-2" class="pill-checkbox" checked data-text="現場介紹消防衣『耐高溫、阻燃』等保護功能與裝備重量">
+                                <label for="out-mini-suit-2" class="sub-pill-label">耐溫阻燃裝備</label>
+                                
+                                <input type="checkbox" id="out-mini-suit-3" class="pill-checkbox" checked data-text="拍照打卡留念並藉此拉近親子、師生與消防隊之距離">
+                                <label for="out-mini-suit-3" class="sub-pill-label">拍照打卡體驗</label>
+                                
+                                <input type="checkbox" id="out-mini-suit-4" class="pill-checkbox" checked data-text="於著裝活動中以互動遊戲灌輸基本正確防火逃生小知識">
+                                <label for="out-mini-suit-4" class="sub-pill-label">遊戲灌輸防火常識</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-mini-suit-other" class="pill-checkbox other-cb" data-input-id="out-mini-suit-other-input">
+                                    <label for="out-mini-suit-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-mini-suit-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Smoke Experience -->
+                        <div id="drawer-smoke-experience" class="outline-drawer">
+                            <div class="title">濃煙體驗要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-smoke-exp-1" class="pill-checkbox" checked data-text="搭建特製無毒濃煙體驗帳篷（或密閉黑暗模擬室）">
+                                <label for="out-smoke-exp-1" class="sub-pill-label">濃煙體驗帳篷</label>
+                                
+                                <input type="checkbox" id="out-smoke-exp-2" class="pill-checkbox" checked data-text="宣導火場濃煙具毒性、向上快速竄升及嚴重遮蔽視線之特性">
+                                <label for="out-smoke-exp-2" class="sub-pill-label">濃煙毒性上升</label>
+                                
+                                <input type="checkbox" id="out-smoke-exp-3" class="pill-checkbox" checked data-text="實地演練雙手摸索沿牆面、保持極低姿勢進行爬行逃生">
+                                <label for="out-smoke-exp-3" class="sub-pill-label">低姿勢沿牆爬行</label>
+                                
+                                <input type="checkbox" id="out-smoke-exp-4" class="pill-checkbox" checked data-text="灌輸正確觀念：通道充斥濃煙時應即關門避難，切勿搭乘電梯">
+                                <label for="out-smoke-exp-4" class="sub-pill-label">關門避難勿搭電梯</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-smoke-experience-other" class="pill-checkbox other-cb" data-input-id="out-smoke-experience-other-input">
+                                    <label for="out-smoke-experience-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-smoke-experience-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Water Extinguisher Operation -->
+                        <div id="drawer-water-extinguisher" class="outline-drawer">
+                            <div class="title">水滅火器操作要點大綱：</div>
+                            <div class="sub-pill-grid">
+                                <input type="checkbox" id="out-water-ext-1" class="pill-checkbox" checked data-text="現場講解示範滅火器操作口訣：『拉、瞄、壓、掃』步驟">
+                                <label for="out-water-ext-1" class="sub-pill-label">拉瞄壓掃口訣</label>
+                                
+                                <input type="checkbox" id="out-water-ext-2" class="pill-checkbox" checked data-text="使用環保型水滅火器射向火災靶位，進行實際噴水滅火體驗">
+                                <label for="out-water-ext-2" class="sub-pill-label">噴水滅火體驗</label>
+                                
+                                <input type="checkbox" id="out-water-ext-3" class="pill-checkbox" checked data-text="指導操作者必須立於『上風處』進行滅火操作以策安全">
+                                <label for="out-water-ext-3" class="sub-pill-label">站立上風處</label>
+                                
+                                <input type="checkbox" id="out-water-ext-4" class="pill-checkbox" checked data-text="宣導滅火器僅適用初期微小火災，火勢擴大應立即放棄逃生">
+                                <label for="out-water-ext-4" class="sub-pill-label">初期火災適用</label>
+                                
+                                <div class="custom-outline-row">
+                                    <input type="checkbox" id="out-water-extinguisher-other" class="pill-checkbox other-cb" data-input-id="out-water-extinguisher-other-input">
+                                    <label for="out-water-extinguisher-other" class="sub-pill-label other-lbl"><i class="fa-solid fa-pen"></i> 其它自訂</label>
+                                    <input type="text" id="out-water-extinguisher-other-input" class="text-input other-input" placeholder="輸入自訂要點...">
                                 </div>
                             </div>
                         </div>
